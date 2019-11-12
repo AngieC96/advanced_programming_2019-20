@@ -1,5 +1,7 @@
 #include <iostream>
 
+// namespace: puts the name of the space where the variable lives before the name of the variable -> avoids name crashing
+
 namespace choose_a_name {
 
   int variable;
@@ -12,6 +14,8 @@ namespace choose_a_name {
 
   }  // namespace nested
 }  // namespace choose_a_name
+
+// we travel in the namesaces using the :: operator
 
 int main() {
   // variable = 42; // error
@@ -26,7 +30,7 @@ int main() {
 void choose_a_name::nested::hello1() {
   std::cout << "hello1 from nested\n"
             << "variable is " << choose_a_name::variable << std::endl;
-}
+} //I'm not in any namespace, so the variable 'variable' is visible only using its fully qualified name
 
 namespace choose_a_name {
   namespace nested {
@@ -37,7 +41,7 @@ namespace choose_a_name {
   }  // namespace nested
 }  // namespace choose_a_name
 
-using namespace choose_a_name;
+using namespace choose_a_name; // I'm in the namespace choose_a_name. From now on, I don't need to repeat choose_a_name:: 
 
 void nested::hello3() {
   std::cout << "hello3 from nested\n"

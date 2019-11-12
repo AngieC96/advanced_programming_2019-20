@@ -50,7 +50,7 @@ double square_root(const double d) {
   // "
   //                       "must be less than 50.\n";
 
-  // AP_ERROR_IN_RANGE(d,0,50);
+  // AP_ERROR_IN_RANGE(d,0,50);  // to check if the value is in the range, you can also add an additional message
 
   return sqrt(d);
 }

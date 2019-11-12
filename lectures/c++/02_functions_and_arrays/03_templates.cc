@@ -1,5 +1,6 @@
 #include <iostream>
 
+//Can I aoid to put the type? YES, with templates -> a mechanism to write a good code at compile time
 template <typename T>
 T dwim(const T a, const T b);
 
@@ -9,8 +10,10 @@ int main() {
   float e{23.4}, f{3.34e2};
   char g{'0'}, h{'6'};
 
-  std::cout << dwim<int>(a, b) << '\n'
-            << dwim(c, d) << '\n'
+  std::cout << dwim<int>(a, b) << '\n' //I can specifty what the compiler should use instead of T
+            << dwim(a, b) << '\n'
+            << dwim(c, d) << '\n' //if the compiler can infer the type of the template, you can omit <type>
+            << dwim<int>(c, d) << '\n'
             << dwim(e, f) << '\n'
             << dwim(g, h) << std::endl;
   return 0;

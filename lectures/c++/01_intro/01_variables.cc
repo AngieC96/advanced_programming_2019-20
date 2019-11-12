@@ -4,8 +4,11 @@
 #include <string>
 
 int main() {
-  // built-in types
-  int a{-1}; // long long int, unsigned int
+  // built-in types -> objects that are already exixting
+  int a{-1}; // -> new vay to initialize variables since c++11, that is recommended -> int is to store positive and negative integers
+// the semicolon is mandatory -> elsewise the compiler makes an error
+  // long long int -> to store bigger integers
+  // unsigned int -> to store positive integers
   // int a = -1; //  is fine
   std::cout << a << std::endl;
 
@@ -41,7 +44,8 @@ int main() {
   // narrowing effect
   int var = 6.9; // try to initialize var with the universal and
                  // uniform initialization
-  // int v_narrow {6.9}; // compiler error or warning with variables
+  // the variable contains 6
+  // int v_narrow {6.9}; // compiler error or warning with variables -> it is better!
   // int v_narrow_w {int(a+b)}; // suppress error/warning with a cast
 
   std::cout << var << "\n";
@@ -50,7 +54,7 @@ int main() {
   var -= 7;
   var *= 7;
   var /= 7;
-  var %= 7;
+  var %= 7; // modulus: returns the reminder of the division
   var++;
   ++var;
 
@@ -73,12 +77,11 @@ int main() {
     std::cout << "test is false\n";
   }
 
-  // constants
-
+  // constants -> declaration of intent: I promis I will not change the value of this variable, please double check -> if you try to change it he compiler gives an error. Also, the performance is better: the code is faster it a variable is constant. There more optimization at run-time
   const int cc{7};
   // cc = 9;			// error
 
-  constexpr double ce{cc * 8.1234 / M_PI}; // evaluated at compile-time
+  constexpr double ce{cc * 8.1234 / M_PI}; // must be evaluated at compile-time: double check that the value is known at compile-time and it is a constant
 
   int ve{int(ce * a)}; // ok create a variable from constexpr
 

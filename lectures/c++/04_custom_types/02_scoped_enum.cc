@@ -1,11 +1,12 @@
 #include <iostream>
 
+// SCOPED ENUM
 enum class color { red, yellow, green };
 // enum class color{red=0, yellow=1, green=2}; // equivalent
 
 void dwim(const color c) {
   switch (c) {
-    case color::red:
+    case color::red: //:: is the scope resolution -> red is in another namespace
       std::cout << "option 1: red\n";
       break;
     case color::yellow:
@@ -24,7 +25,7 @@ int main() {
   color opt{color::red};
   // opt = 3;     // cannot assign int to enum
   // int a = opt; // and they don't implicitly convert to integers
-  int a{static_cast<int>(opt)};  // cast
+  int a{static_cast<int>(opt)};  // cast -> you have to do a static cast
   // int a {int(opt)}; //
   // int a {(int)opt}; // C-style cast
 
@@ -35,7 +36,7 @@ int main() {
   // dwim(2); // error
   dwim(color(2));  // works but what why you may want to write this?
 
-  dwim(color(6));  // ???
+  dwim(color(6));  // ??? -> works for something that we will understand at the end of the lecture
 
   return 0;
 }

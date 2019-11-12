@@ -178,6 +178,8 @@ namespace internal {
       << "   function: " << __PRETTY_FUNCTION__ << '\n'                        \
       << "------------------------------------------------------------------"  \
       << "\n\n"
+// If you use a function instead of a macro the variables __FILE__, __LINE__, __PRETTY_FUNCTION__ would have been always the same: the one of the function
+// Instead a macro is a piece of code that is take and substituted in the point I wants
 
 #define _AP_ERROR1(cond) _AP_ERROR2(cond, std::runtime_error)
 

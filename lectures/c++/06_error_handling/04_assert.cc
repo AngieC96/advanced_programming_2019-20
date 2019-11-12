@@ -35,3 +35,14 @@ double square_root(const double d) {
   // AP_ASSERT_IN_RANGE(d,0,50);
   return sqrt(d);
 }
+
+/*
+$ g++ 04_assert.cc -DNDEBUG
+$ ./a.out 
+please insert a number
+-9
+square root of -9 is -nan     -> NO exceptions handling!!!
+*/
+
+// Error is always checked, with an if, that slows down the code. So depending on the time constraints
+//if you want to speed up the code use assert instead of removing the checking

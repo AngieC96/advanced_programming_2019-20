@@ -33,11 +33,12 @@ class ManyResources {
   Vector v;
 
  public:
-  ManyResources() : ptr{nullptr}, v{3} {
+  ManyResources() : ptr{nullptr}, v{3} { // ptr{nullptr} to be sure to create the element only if all the creations will be done
     std::cout << "Manyresources" << std::endl;
     try {
       ptr = new double[5];  // new(std::nothrow) double[5] could be better
-      AP_ERROR(false) << "Error in ManyResources ctor." << std::endl;
+      AP_ERROR(false) << "Error in ManyResources ctor." << std::endl;  // I force an error -> to simulate an exception from new
+      // c++ throws an exception if new fails, while c with malloc or calloc returns an error and a NULLPTR if they fail
     } catch (...) {
       delete[] ptr;  // <----
       throw;
@@ -52,7 +53,7 @@ class ManyResources {
 
 int main() {
   Foo f;
-  int* raw_ptr = new int[7];
+  int* raw_ptr = new int[7];  // I have to delete it even if there is an error
   try {
     // int * raw_ptr=new int[7]; // wrong because raw_ptr would not be visible
     // inside the catch-clause
@@ -69,10 +70,12 @@ int main() {
   } catch (...) {
     std::cerr << "Unknown exception. Aborting.\n" << std::endl;
 
-    delete[] raw_ptr;  // <---
+    delete[] raw_ptr;  // <--- you have to do it in every catch!!!!
     return 2;
   }
 
   delete[] raw_ptr;  // <---
   return 0;
 }
+
+// Take home message: don't use raw pointers, use smart pointers! -> see new file

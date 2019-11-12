@@ -3,7 +3,7 @@
 
 template <typename T>
 class Vector {
-  std::unique_ptr<T[]> elem;
+  std::unique_ptr<T[]> elem; // With smart pointers it works?
   std::size_t _size;
 
  public:
@@ -25,7 +25,9 @@ class Vector {
 
 int main() {
   Vector<double> v1{7};
-  // Vector<double> v2{v1}; // default copy ctor calls a deleted function by
+  //Vector<double> v2{v1}; // default copy ctor calls a deleted function by
+  // You are the owner of that object, so no one can copy from you
+  // If you decomment the line: error: use of deleted function ‘Vector<double>::Vector(const Vector<double>&)’
   // std::unique_ptr
   return 0;
 }

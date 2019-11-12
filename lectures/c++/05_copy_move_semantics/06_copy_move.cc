@@ -5,7 +5,7 @@
 template <typename T>
 class Vector {
   std::size_t _size;
-  std::unique_ptr<T[]> elem;
+  std::unique_ptr<T[]> elem;  // Unique pointers
 
  public:
   // custom ctor
@@ -13,6 +13,17 @@ class Vector {
       : _size{length}, elem{new T[length]{}} {
     std::cout << "custom ctor\n";
   }
+
+// std::vector<int> v{4,2}; // vector of 2 elemnts: 4 and 2
+// std::vector<int> v(4,2); // vector of 4 elements of value 2 each
+// If there is ambiguity the initializer list wins:
+// Vector<int> v{4}; -> is the initializer list or the constructor that takes the size? The standard says that is the initializer list
+
+// std::vector<int> v{1, 2, 3}; //vector of 3 elements: 1, 2 , 3
+// Our Vector class is not able to do that. How can we do that?
+// Since c++11 we have the initializer list: list of elements of the same type, so when we write
+// this it first makes a list of the values {1, 2, 3} and then it copies them int the vector
+// deducing the size from the number of arguments
 
   // Vector(const std::initializer_list<T> args)
   //     : _size{args.size()}, elem{new T[_size]} {
@@ -34,7 +45,7 @@ class Vector {
   Vector(const Vector& v);
 
   // copy assignment -- deep copy
-  Vector& operator=(const Vector& v);
+  Vector& operator=(const Vector& v);  // const because when you copy you shoudn't modify the vector!
   // end of copy semantics
   /////////////////////////
 
@@ -42,18 +53,21 @@ class Vector {
   // move semantics
 
   // move ctor
-  Vector(Vector&& v) : _size{std::move(v._size)}, elem{std::move(v.elem)} {
+  Vector(Vector&& v) : _size{std::move(v._size)}, elem{std::move(v.elem)} {  // For built-in type a move is a copy! For _size is just a copy, for elem I'm invoking the move semantics of unique pointers. Pointers are built-in types, and unique pointers are as fast as them
+    // arg value 
     std::cout << "move ctor\n";
   }
 
   // Vector(Vector&& v) = default; // ok
 
-  // move assignment
+  // move assignment: I do a move element-wise
   Vector& operator=(Vector&& v) {
     std::cout << "move assignment\n";
     _size = std::move(v._size);
     elem = std::move(v.elem);
-    return *this;
+    // Move is the best implementation of a SWAP!
+    // In the transpose matrix exercise --->>>> A = std::move(transposed);
+    return *this;  // A pointer to yourself = the instantiated object -> when you dereferentiate it you get the object
   }
 
   // Vector& operator=(Vector&& v) = default; // ok
@@ -74,11 +88,11 @@ class Vector {
   T* end() { return &elem[_size]; }
 };
 
-// copy ctor
+// copy ctor -> here we want to to a copy element-wises
 template <typename T>
 Vector<T>::Vector(const Vector& v) : _size{v._size}, elem{new T[_size]} {
   std::cout << "copy ctor\n";
-  std::copy(v.begin(), v.end(), begin());
+  std::copy(v.begin(), v.end(), begin()); // Instead of doing a for loop
 }
 
 // copy assignment
@@ -86,11 +100,17 @@ template <typename T>
 Vector<T>& Vector<T>::operator=(const Vector& v) {
   std::cout << "copy assignment (\n";
 
+  //auto &ov = v;
+  //ov = v; -> segmentation fault because you've deleted yourself and then you're trying to copy yourself
+  // To avoid this we write:
+  if (&v == this)
+    return *this;
+
   // we could decide that this operation is allowed if and only if
   // _size == v._size
   //
 
-  elem.reset();              // first of all clean my memory
+  elem.reset();              // first of all clean my memory -> reset is a public function of the unique pointers
   auto tmp = v;              // then use copy ctor
   (*this) = std::move(tmp);  // finally move assignment
 
@@ -167,6 +187,7 @@ int main() {
   std::cout << "v4 = " << v4;
 
   std::cout << "\nNRVO: Named Return Value Optimization\n";
+  // v4 is created and then res is called inside it, so there's not a call to the move ctor -> It's faster!
 
   std::cout << "\nv4 = v3 + v3 + v2 + v3; calls\n";
   v4 = v3 + v3 + v2 + v3;

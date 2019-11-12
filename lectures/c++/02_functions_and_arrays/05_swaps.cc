@@ -1,11 +1,11 @@
 #include <iostream>
 #include <utility>  //std::swap
 
-void buggy_swap(int a, int b);
-void c_swap(int* a, int* b);
-void cxx_swap(int& a, int& b);
+void buggy_swap(int a, int b); //already seen
+void c_swap(int* a, int* b); //c style
+void cxx_swap(int& a, int& b); //c++ style
 
-template <typename T>
+template <typename T> //template function to swap two objects in c++ style
 void templ_swap(T& a, T& b);
 
 int main() {
@@ -16,7 +16,7 @@ int main() {
 
   a = 3;
   b = 7;
-  c_swap(&a, &b);
+  c_swap(&a, &b); // & gives the address of a variable
   std::cout << "    c:\texpected 7 3 --> " << a << " " << b << "\n";
 
   a = 3;
@@ -41,12 +41,14 @@ void buggy_swap(int a, int b) {
   a = tmp;
 }
 
+// a pointer (a) points to the address of a house, while when we dereference it (*a) we access to the content of the house
 void c_swap(int* a, int* b) {
-  int tmp{*b};
+  int tmp{*b}; //tmp is an integer
   *b = *a;
   *a = tmp;
 }
 
+//In c++ there is a new type: int& -> a pointer that automatically dereferences itself
 void cxx_swap(int& a, int& b) {
   int tmp{b};
   b = a;
@@ -59,3 +61,5 @@ void templ_swap(T& a, T& b) {
   b = a;
   a = tmp;
 }
+
+//WE CAN DO BETTER! move syntax

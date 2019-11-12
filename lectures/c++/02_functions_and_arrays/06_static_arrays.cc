@@ -1,19 +1,20 @@
 #include <iostream>
 
 void surprise(double a[], const std::size_t n) {
-  for (auto i = 0llu; i < n; ++i) {
+  for (auto i = 0llu; i < n; ++i) { //0llu = zero long long unsigned -> to force it to be a long long unsigned int
     a[i] = 77;
   }
 }
 
 int main() {
-  int ai[4];
+  int ai[4];  //arrays = attiguous cells of memory that contains something
   float af[9];
   ai[0] = 9;    // first element
   af[8] = 3.3;  // last element
   ai[88] = 7;   // undefined behavior, no range checking
 
-  for (std::size_t k{0}; k < 4; ++k)
+//size_t = long long unsigned int
+  for (std::size_t k{0}; k < 4; ++k) //the right type is size_t, to avoid int overflow, and int can be negative -> to choose meaningful types for variables!
     std::cout << "ai[" << k << "] = " << ai[k] << '\n';
 
   std::cout << "\n-------------------------------\n\n";

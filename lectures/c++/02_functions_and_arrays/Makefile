@@ -4,7 +4,8 @@ SRC = 01_functions.cc         \
       04_wrong_args.cc        \
       05_swaps.cc             \
       06_static_arrays.cc     \
-      07_dynamic_arrays.cc
+      07_dynamic_arrays.cc    \
+      test.cc
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -g -std=c++14

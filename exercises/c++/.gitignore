@@ -1,0 +1,53 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Executables (Angela rompe)
+*.x
+
+# Other files directory 01_
+#03_getters.png
+#03_getters_OLD.cc
+#04_units_of_measure_OLD.cc
+#05_text_formatter_OLD.cc
+#Irene_esercizio2.cc
+#Prova_recast.cc
+#Terminale.txt
+#text.txt
+#test.txt
+
+# Other files directory 02_
+#01_reverse_order_OLD.cc
+#test.cc
+
+# Other files directory 03_
+#Prova_template.cc

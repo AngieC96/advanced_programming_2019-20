@@ -2,7 +2,7 @@
 #include <string>
 
 struct S {
-  int a;
+  int a;           // built-in types are uninitialized
   double b;
   std::string s;  // default ctor of string set s to empty string
 };
@@ -15,9 +15,9 @@ int main() {
                             // that I need access (i.e. they must be
                             // public)
   // it is called aggregate initialization (see
-  // https://en.cppreference.com/w/cpp/language/aggregate_initialization)
+  // https://en.cppreference.com/w/cpp/language/aggregate_initialization
 
-  S s3{};  // calls {} on each member: S s3 { {}, {}, {} };
+  S s3{};  // calls {} on each member: S s3 { {}, {}, {} }; -> it's always the default constructor!
 
   std::cout << s1.a << "--" << s1.b << "--" << s1.s << "\n";
   std::cout << s2.a << "--" << s2.b << "--" << s2.s << "\n";

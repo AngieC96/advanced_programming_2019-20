@@ -5,6 +5,7 @@ int dwim(const int a, const int b);
 double dwim(const double a, const double b);
 float dwim(const float a, const float b);
 
+//In c++ we can do OVELOADING: function with the same name but different arguments type, number of arguments and returning type -> the compilers deduces the one to use according by the inputs
 int main() {
   int a{5}, b{7};
   double c{3.332}, d{7.7};
@@ -16,6 +17,7 @@ int main() {
   return 0;
 }
 
+//definition
 int dwim(const int a, const int b) {
   std::cout << "int ------ ";
   return a + b;

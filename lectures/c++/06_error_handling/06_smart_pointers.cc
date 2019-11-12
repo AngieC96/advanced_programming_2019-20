@@ -3,14 +3,17 @@
 
 #include "ap_error.h"
 
+// two types of smart pointers: unique pointers or shared pointers
+// shared pointers have to know how many peopole share it 
+
 class Vector {
-  std::unique_ptr<double[]> elem;
+  std::unique_ptr<double[]> elem;  // if someone throws an exception, unique pointers take care of that
 
  public:
   Vector(const unsigned int l) : elem{new double[l]} {
     std::cout << "Vector ctor\n";
   }
-  double& operator[](const unsigned int i) noexcept {
+  double& operator[](const unsigned int i) noexcept {  // if you are sure that a function doesn't throws an exception -> the code will be faster!
     return elem[i];
   }  // you can use smart pointers almost like raw pointers
   ~Vector() noexcept { std::cout << "~Vector\n"; }
@@ -44,3 +47,4 @@ int main() {
 
   return 0;
 }
+// the main should be entirely put in a try-catch!

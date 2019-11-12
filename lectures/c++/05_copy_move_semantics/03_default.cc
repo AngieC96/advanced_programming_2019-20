@@ -1,7 +1,7 @@
 #include <iostream>
 
 struct X {
-  int a = 5;  // in-class initialization
+  int a = 5;  // in-class initialization -> I can assign a default value to some members
   double b;
   char c = 'a';
   X() = default;  // in-class initializers are used by the constructors
@@ -12,7 +12,8 @@ struct Y {
   double b;
   char c = 'a';
   Y() : a{5} {}  // what it is written here wins the in-class initialization
-  Y(const Y&) = delete;
+  //Y() : a{5} {a=7;}  // when se write a=7 we are calling the copy constructor because a has already been initialized
+  Y(const Y&) = delete; // You cannot copy this objects!
 };
 
 int main() {

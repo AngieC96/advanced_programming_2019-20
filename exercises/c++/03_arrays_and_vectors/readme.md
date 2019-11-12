@@ -8,9 +8,9 @@
 
 - In C/C++, the matrices are accessed row-wise
 - Don't try to use that for very big matrices, otherwise you go in stack overflow.
-- You are not required to do the transpose *in place*
+- You are not required to do the transpose *in place* -> use another matrix
 - Test with both square and rectangular matrices.
-- Use `std::swap` defined in header `<utility>`
+- Use `std::swap` defined in header `<utility>` to swap two elements of the matrix
 
 ## Convert `argv` to types
 
@@ -92,3 +92,5 @@ auto t0 = high_resolution_clock::now();
 ...
 std::this_thread::sleep_for (std::chrono::milliseconds(50));
 ```
+
+Create a matrix and

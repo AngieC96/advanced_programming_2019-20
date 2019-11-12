@@ -12,11 +12,11 @@
     pointer to the first element.
 
   2. Write a **template** function that prints the elements of an
-    array in the reverse order.
+    array in the reverse order. -> argument: the array of type T
 
 - Test with integers and doubles.
 
-- Use `std::size_t`.
+- Use `std::size_t`. -> for the length
 
   ​
 
@@ -29,18 +29,20 @@
 
   `-g -fsanitize=address`  and then run your executable.
 
+-> Ubuntu: valgrind ./a.out OR valgrind ./reverse.x
+-> g++ -g -fsanitize=address reverse.cc and then ./a.out
+-> -g returns the lines where there are the memory leaks (and doesn't show the binary code for the part of memory)
   ​
 
 ## Prime numbers
 
-- Populate an array named `primes` containing the first prime numbers
-  smaller than 100. Consider 2 as the first prime (i.e. `primes[0] == 2`).
+- Populate an array named `primes` (whose length is unknown) containing the first prime numbers smaller than 100. Consider 2 as the first prime (i.e. `primes[0] == 2`).
   
-  - you are free to choose the design and the implementation.
+  - you are free to choose the design and the implementation. -> two choices: array of 100 or array of 2 elements and every time I find a prime I create a new vector of lenght +1 copy the old one inside it and then delete the previous one
 
   - please comment and motivate your choices (e.g., allocate one big
     array or every time I find a new prime number I increase the size of
-    the previous `primes` array, etc.)
+    the previous `primes` array, etc.) -> it can also be: it is simpler
 
 *Hints*:
 
@@ -55,7 +57,7 @@ unsigned int remainder = 6%3;
 
 
 
-## Sieve of Eratosthenes
+## Sieve of Eratosthenes -> il setaccio di Eratostene
 
 - Implement the Sieve of Eratosthenes algorithm. Write a code that
   prints on screen the first prime numbers up to `N` **included**, where `N`
