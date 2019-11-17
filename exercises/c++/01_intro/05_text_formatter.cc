@@ -1,21 +1,23 @@
-//NON VA BENE perchè spezza le parole
-
 #include <iostream>
 
 int main(){
-	int a = 8;
+	int a{8}, k{-1};
 	//std::cout << "Inserisci la lunghezza massima: "<< std::endl;
 	//std::cin >> a;
 	std::string line;
 	while(std::getline(std::cin,line)){
 		if(line.length() > a){
-			for(int i=0; i < a; i++)
-				std::cout << line[i];
+			for(int j=0; j < a; j++)
+				if(line[j] == ' ')
+					k = j;
+			for(int j=0; j < k; j++)
+				std::cout << line[j];
+			if (k > 0) std::cout << std::endl;
+			//I erase the space betwen the words
+			for(int j=k+1; j <= line.length(); j++)
+				std::cout << line[j];
 			std::cout << std::endl;
-			for(int i=a; i <= line.length(); i++)
-				std::cout << line[i];
-			std::cout << std::endl;
-		} else{
+		} else {
 			std::cout << line << std::endl;
 		}
 	}
