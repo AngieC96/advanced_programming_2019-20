@@ -1,10 +1,11 @@
 #include <iostream>
 
-template <typename T> T* array(const std::size_t n){
+template <typename T> T* array(const std::size_t m){
 	
 	T val;
-	T* arr{new T[n]};
-	for (std::size_t i{0}; i < n; ++i){
+	T* arr{new T[m]};
+	std::cout << "Insert the values of the array: " << std::endl;
+	for (std::size_t i{0}; i < m; ++i){
 		std::cin >> val;
     	arr[i] = val;
 	}
@@ -12,36 +13,30 @@ template <typename T> T* array(const std::size_t n){
 	return arr;
 }
 
-template <typename T> T print_arr(T* array, const std::size_t n){
-	for (std::size_t i{n}; i > 0; --i)
-		std::cout << "arr[" << i-1 << "] = " << array[i-1] << std::endl;
-//	  while(n)
-//	  std::cout << array[--n] << std::endl;
-//	while(n--)
-//		std::cout << array[n] << std::endl;
-
-	delete[] array;
+template <typename T> void print_arr(T* array, const std::size_t m){
+	std::cout << "The array is: " << std::endl;
+	for (std::size_t i{0}; i < m; ++i)
+		std::cout << "arr[" << m-1-i << "] = " << array[m-1-i] <<std::endl;
 }
 
 int main(){
 	
-	std::size_t n;
-	std::cin >> n;
+	std::cout << "Insert the length of the array: " ;
+	std::size_t n_1;
+	std::cin >> n_1;
 
-	//int arr[n];
-	//print_arr<int>(arr, n);
+	int* a{array<int>(n_1)};
+	print_arr(a, n_1);
+	
+	std::cout << "Insert the length of the array: " ;
+	std::size_t n_2;
+	std::cin >> n_2;
 
-	//int * a{array<int>(n)};
-	//double a = array<double>(n);
+	auto b = array<double>(n_2);
+	print_arr(b, n_2);
 
-	//auto a = array<double>(n);
-	//print_arr(a, n);
-
-	print_arr(array<double>(n), n);
-
-	//delete [] a;
-
-
+	delete [] a;
+	delete [] b;
 
 	return 0;
 }

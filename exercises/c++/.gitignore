@@ -46,8 +46,9 @@ text.txt
 test.txt
 
 # Other files directory 02_
-#01_reverse_order_OLD.cc
-#test.cc
+01_reverse_order_OLD.cc
+01_Valgrind.png
+test.cc
 
 # Other files directory 03_
 #Prova_template.cc
