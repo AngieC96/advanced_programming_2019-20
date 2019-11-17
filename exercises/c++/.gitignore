@@ -48,6 +48,7 @@ test.txt
 # Other files directory 02_
 01_reverse_order_OLD.cc
 01_Valgrind.png
+04_02_sieve_of_Eratosthenes_OLD.cc
 test.cc
 
 # Other files directory 03_
