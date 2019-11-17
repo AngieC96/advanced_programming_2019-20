@@ -35,6 +35,7 @@
 *.x
 
 # Other files directory 01_
+ToIgnore.txt
 #03_getters.png
 #03_getters_OLD.cc
 #04_units_of_measure_OLD.cc
