@@ -35,8 +35,8 @@
 *.x
 
 # Other files directory 01_
-#03_getters.png
-#03_getters_OLD.cc
+03_getters.png
+03_getters_OLD.cc
 #04_units_of_measure_OLD.cc
 #05_text_formatter_OLD.cc
 #Irene_esercizio2.cc
