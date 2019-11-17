@@ -52,4 +52,7 @@ test.txt
 test.cc
 
 # Other files directory 03_
-#Prova_template.cc
+04_01_avoid_repeated_words.cc
+04_02_avoid_repeated_words.cc
+Prova_template.cc
+test.txt
