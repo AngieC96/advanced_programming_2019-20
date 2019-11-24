@@ -1,4 +1,5 @@
-SRC = as_vector.cc
+SRC = as_vector.cc \
+      my_vector.cc
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -std=c++14 -I ../../../lectures/c++/06_error_handling/
