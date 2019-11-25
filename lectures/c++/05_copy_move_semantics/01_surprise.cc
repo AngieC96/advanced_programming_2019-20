@@ -16,4 +16,6 @@ int main() {
   return 0;
 }
 
-//If you dont' write anything, the compiler will create a bunch of functions for you: default ctor, copy ctor, move ctor. If you define the copy ctor the compiler won't create neither his copyctor neither the move ctor, and if you define only the move ctor the compiler won't create his copy ctor, nor the copy/move assignments
+//If you dont' write anything, the compiler will create a bunch of functions for you: default ctor, copy ctor, move ctor.
+//If you define the copy ctor the compiler won't create neither his copyctor neither the move ctor, and if you define
+// only the move ctor the compiler won't create his copy ctor, nor the copy/move assignments
