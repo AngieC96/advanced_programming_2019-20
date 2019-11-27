@@ -17,7 +17,8 @@ class Vector {
 // std::vector<int> v{4,2}; // vector of 2 elemnts: 4 and 2
 // std::vector<int> v(4,2); // vector of 4 elements of value 2 each
 // If there is ambiguity the initializer list wins:
-// Vector<int> v{4}; -> is the initializer list or the constructor that takes the size? The standard says that is the initializer list
+// Vector<int> v{4}; -> is the initializer list or the constructor that takes the size?
+// The standard says that is the initializer list
 
 // std::vector<int> v{1, 2, 3}; //vector of 3 elements: 1, 2 , 3
 // Our Vector class is not able to do that. How can we do that?
@@ -33,8 +34,8 @@ class Vector {
 
   // default ctor
   Vector() { std::cout << "default ctor\n"; }  // _size uninitialized
-  // Vector() : _size{}, elem{} { std::cout << "default ctor\n"; } // this could
-  // be better Vector() = default;
+  // Vector() : _size{}, elem{} { std::cout << "default ctor\n"; } // this could be better
+  // Vector() = default;  // equal to the previous one
 
   ~Vector() = default;
 
@@ -57,6 +58,14 @@ class Vector {
     // arg value 
     std::cout << "move ctor\n";
   }
+/*
+The funny && notation is called an “rvalue reference.” We use it for defining
+move operations. Note that move operations do not take const arguments; that
+is, we write (vector&&) and not (const vector&&) . Part of the purpose of a move
+operation is to modify the source, to make it “empty.” The definitions of move
+operations tend to be simple. They tend to be simpler and more efficient than
+their copy equivalents.
+*/
 
   // Vector(Vector&& v) = default; // ok
 

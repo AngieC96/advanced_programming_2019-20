@@ -3,7 +3,8 @@
 
 template <typename T>
 class Vector {
-  std::unique_ptr<T[]> elem; // With smart pointers it works?
+  // A unique_ptr is an object that holds a pointer. We think of unique_ptr as a kind of pointer. However, the unique_ptr owns the object pointed to: when the unique_ptr is destroyed, it delete s the object it points to.
+  std::unique_ptr<T[]> elem; // With smart pointers it works? We're trying to fix the free() bug of shallow copy
   std::size_t _size;
 
  public:
@@ -25,9 +26,9 @@ class Vector {
 
 int main() {
   Vector<double> v1{7};
-  //Vector<double> v2{v1}; // default copy ctor calls a deleted function by
+  //Vector<double> v2{v1}; // default copy ctor calls a deleted function by std::unique_ptr
   // You are the owner of that object, so no one can copy from you
   // If you decomment the line: error: use of deleted function ‘Vector<double>::Vector(const Vector<double>&)’
-  // std::unique_ptr
+
   return 0;
 }

@@ -6,9 +6,11 @@ class Vector {
   std::size_t _size;
 
  public:
+  // A constructor that takes a single argument defines a conversion from its argument type to its class.
+  // A constructor defined explicit provides only the usual construction semantics and not the implicit conversions.
   explicit Vector(const std::size_t length)  // Only in the constructors with one arguments: puts in front of each constructor
   //Vector(const std::size_t length)
-      : elem{new T[length]{}}, _size{length} {}  // elem{new T[length]{} (= malloc) doesn't initialize the vector, while  elem{new T[length]{}} (= calloc) initializes the elements of the vector to 0
+      : elem{new T[length]{}}, _size{length} {}  // elem{new T[length]} (= malloc) doesn't initialize the vector, while  elem{new T[length]{}} (= calloc) initializes the elements of the vector to 0
 
   ~Vector() { delete[] elem; }
 
@@ -37,15 +39,15 @@ int main() {
   v1[2] = 3;
 
   print(v1);
-  //print(1); // Whitout explicit in the constructor it compiles anyway! And prints 0.
-  // With explicit error: invalid initialization of reference of type ‘const Vector<int>&’ from expression of type ‘int’
+  //print(1); // Whitout explicit in the constructor it compiles anyway! And prints 0 -> it creaes a vector of 1 element
+  // With explicit: compile error: invalid initialization of reference of type ‘const Vector<int>&’ from expression of type ‘int’
 
   std::cout << "v1: ";
   for (const auto x : v1)   /* v1 is the container. Since c++11: requires a begin() and an end() function.
   This is equivalent to:
   {
     auto it = v1.begin()
-    auto stop = v1.end
+    auto stop = v1.end()
     for (; it != stop; ++it){
       const auto x = *it;
     }
