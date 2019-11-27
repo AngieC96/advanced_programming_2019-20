@@ -14,7 +14,7 @@ struct Animal {
 };
 
 struct Dog {
-  Animal _animal;
+  Animal _animal; // a dog is an animal
   void speak() const noexcept { std::cout << "Bau\n"; }
   void info() const noexcept { _animal.info(); }
   Dog() noexcept : _animal{} {}
@@ -27,7 +27,7 @@ struct Snake {
   Snake(const unsigned int a, const double w, const bool b) noexcept
       : _animal{a, w}, dangerous{b} {}
   Snake(const bool b) noexcept : _animal{}, dangerous{b} {}
-  void info() const noexcept {
+  void info() const noexcept {                                 // it has it's own method info()
     _animal.info();
     std::cout << "dangerous:\t" << (dangerous ? "true" : "false") << std::endl;
   }
@@ -78,3 +78,9 @@ int main() {
     return 1;
   }
 }
+
+
+// three verbs important in object oriented language:
+// is a -> : public -> a snake is an animal
+// has a -> object comp
+// use a -> protected, private

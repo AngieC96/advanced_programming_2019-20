@@ -7,7 +7,8 @@ struct Base {
 
 template <typename T>
 struct Derived : public Base<T> {
-  void bar() const { this->foo(); }
+  // void bar() const { oo(); } // This code doesn't compile -> the compiler 
+  void bar() const { this->foo(); }  // this is a ointer to myself -> if the base class is templates and you cannot access a memeber that you now it's yours, use this-> !!!!
 };
 
 int main() {

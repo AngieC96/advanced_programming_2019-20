@@ -62,9 +62,11 @@ void print_animal(const Animal& a) noexcept {
   a.info();
   a.speak();
 
-  // dynamic_cast is used to know the real type of the object
-  if (dynamic_cast<const DangerousSnake*>(&a))
+  // types are decided at run-time: how can I know the type?
+  // dynamic_cast is used to know the real type of the object -> I know the type that I got: if succeeded it's the right type
+  if (dynamic_cast<const DangerousSnake*>(&a)) // if the dynamic cast succeeded, I know taht this object is a DangerousSnake
     std::cout << "call 911...\n";
+  // I can do the same with templates!
 }
 
 int main() {

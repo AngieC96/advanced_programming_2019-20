@@ -1,11 +1,11 @@
 #include <ap_error.h>
 #include <iostream>
 
-class Animal {
+class Animal { // parents should have private members!
   unsigned int age;
   double weight;
 
- public:
+ public:   // it's better
   Animal(const unsigned int a, const double w) : age{a}, weight{w} {
     AP_ERROR_GE(weight, 0) << "invalid weight!\n";
   }
@@ -17,14 +17,14 @@ class Animal {
     std::cout << "age:\t" << age << '\n' << "weight:\t" << weight << '\n';
   }
 
-  virtual ~Animal() {}
+  virtual ~Animal() {}  // Most asked question at an interview
 };
 
 class Dog : public Animal {
  public:
   void speak() const noexcept override { std::cout << "Bau\n"; }
   Dog() = default;
-  Dog(const unsigned int a, const double d) : Animal{a, d} {}
+  Dog(const unsigned int a, const double d) : Animal{a, d} {}  // delegating constructor
 };
 
 class Snake : public Animal {
@@ -56,7 +56,8 @@ class NonDangerousSnake : public Snake {
 
 struct Python : public NonDangerousSnake {};
 
-using Anaconda = DangerousSnake;
+using Anaconda = DangerousSnake;  // since c++11, like typedef -> but is better using! Here I'm introducing an alias
+// it's just an alias so it's not putted in the tree of hierarchy in Doxygens
 
 void print_animal(const Animal& a) noexcept {
   std::cout << "throught ref\n";
@@ -72,7 +73,7 @@ int main() {
 
     std::cout << std::endl;
 
-    // Animal* p = new DangerousSnake{1, 2.3};
+    // Animal* p = new DangerousSnake{1, 2.3};  // These two lines are the SAME!
     Animal* p = new Anaconda{1, 2.3};
 
     std::cout << "through pointer\n";

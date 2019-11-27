@@ -11,7 +11,8 @@ struct Animal {
 
   Animal() : Animal{0, 0} {}  // delegating constructor
 
-  virtual void speak() const = 0;  // pure virtual function ==> abstract class
+   // functions of the children should be marked as virtual
+  virtual void speak() const = 0;  // pure virtual function ==> abstract class -> you cannnot istantiate an object of this class -> an abstract class is a class with at least one virtual method
   virtual void info() const noexcept {
     std::cout << "age:\t" << age << '\n' << "weight:\t" << weight << '\n';
   }
@@ -37,6 +38,7 @@ struct Snake : public Animal {
   void speak() const noexcept override { std::cout << "ssss\n"; }
 };
 
+// now we have virtual so it works!
 void print_animal(const Animal& a) noexcept {
   std::cout << "throught ref\n";
   a.info();
@@ -53,7 +55,7 @@ int main() {
 
     Animal* p = new Snake{1, 2.3, false};
 
-    std::cout << "through pointer\n";
+    std::cout << "through pointer\n"; // problem solved!
     p->info();
     p->speak();
 
@@ -69,3 +71,11 @@ int main() {
     return 1;
   }
 }
+
+// You inherit not only data but also the INTERFACE! -> I'm forced to inplement all the methods that the base class has!
+
+
+// override -> with virual -> same function, very similar parameters, DIFFERENT classes
+// c++11 -> override keyword to do the override, instead of repeating virtual
+// once if you exchanged two paraemters the compiler created a new virtual function, instead with override the compiler double checked that there is an equal virtual function in the base class, otherwise it doesn't compile
+// overload -> same name of function with different parameters
