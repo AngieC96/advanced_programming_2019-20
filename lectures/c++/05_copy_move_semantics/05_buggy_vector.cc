@@ -4,6 +4,9 @@
 template <typename T>
 class Vector {
   // A unique_ptr is an object that holds a pointer. We think of unique_ptr as a kind of pointer. However, the unique_ptr owns the object pointed to: when the unique_ptr is destroyed, it delete s the object it points to.
+  // A unique_ptr is very much like an ordinary pointer, but it has one significant restriction: you cannot assign one unique_ptr to another to get two unique_ptr s to the same object. That has to be so, or confusion could arise about which unique_ptr owned the pointed-to object and had to delete it.
+  // A unique_ptr has the interesting property of having no overhead compared to an ordinary pointer.
+  // If you want to have a “smart” pointer that both guarantees deletion and can be copied, use a shared_ptr. However, that is a more heavyweight solution that involves a use count to ensure that the last copy destroyed destroys the object referred to.
   std::unique_ptr<T[]> elem; // With smart pointers it works? We're trying to fix the free() bug of shallow copy
   std::size_t _size;
 
