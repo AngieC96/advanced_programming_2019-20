@@ -3,7 +3,8 @@
 struct Base {
   Base() { std::cout << "Base\n"; }
   //~Base() { std::cout << "~Base\n"; }
-  virtual ~Base() { std::cout << "~Base\n"; } // if you know that a class is inherited, put the destructor virtual! So also the derived class destructor will be called
+  virtual ~Base() { std::cout << "~Base\n"; } // if you know that a class is inherited, put the destructor virtual! 
+  // So also the derived class destructor will be called
 };  // Before virtual, size = 1. Now size = 8
 
 struct Derived : public Base {
@@ -16,7 +17,8 @@ int main() {
 
   std::cout << "\n\npointers\n";
   Base* p = new Derived;
-  delete p;  // I invoke the destructor ~Base because p is a Base pointer
+  delete p;  // I invoke the destructor ~Base because p is a Base pointer.
+  // But without the destructor ~BAse() virtual, the destructor ~Derived() is not called!
 
   return 0;
 }
@@ -36,5 +38,5 @@ int main() {
 // sort<measure<double>>  // it's slower but not so much because the size of measure<double> is equal to double!
 
 // semiregular -> type for which copy ctor, move ctor, etc has been defined
-// regular -> equaltity comparison has been defined
-// totally ordered -> the less or equal than, greater or equal than, etc has been defined
+// regular -> type for which equaltity and comparison has been defined
+// totally ordered -> type for which the less or equal than, greater or equal than, etc has been defined

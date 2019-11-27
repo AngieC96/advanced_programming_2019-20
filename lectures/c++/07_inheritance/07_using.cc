@@ -5,7 +5,7 @@ struct foo {
 };
 
 struct bar : public foo {
-  //using foo::f;  // brings all foo::f to this scope
+  using foo::f;  // brings all foo::f to this scope
   void f(char x) { std::cout << "char " << x << std::endl; }  // it's OVERLOADING!!!
 };
 

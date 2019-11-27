@@ -2,6 +2,7 @@
 #include <iostream>
 
 struct Animal {
+  // You inherit not only data but also the INTERFACE! -> I'm forced to inplement all the methods that the base class has!
   unsigned int age;
   double weight;
 
@@ -22,6 +23,11 @@ struct Animal {
 
 struct Dog : public Animal {
   void speak() const noexcept override { std::cout << "Bau\n"; }
+  // override -> with virual -> same function, very similar parameters, DIFFERENT classes
+  // c++11 -> override keyword to do the override, instead of repeating virtual
+  // once if you exchanged two paraemters the compiler created a new virtual function, instead with override the compiler
+  // double checked that there is an equal virtual function in the base class, otherwise it doesn't compile
+  // overload -> same name of function with different parameters
   Dog() = default;
   Dog(const unsigned int a, const double d) : Animal{a, d} {}
 };
@@ -71,11 +77,3 @@ int main() {
     return 1;
   }
 }
-
-// You inherit not only data but also the INTERFACE! -> I'm forced to inplement all the methods that the base class has!
-
-
-// override -> with virual -> same function, very similar parameters, DIFFERENT classes
-// c++11 -> override keyword to do the override, instead of repeating virtual
-// once if you exchanged two paraemters the compiler created a new virtual function, instead with override the compiler double checked that there is an equal virtual function in the base class, otherwise it doesn't compile
-// overload -> same name of function with different parameters

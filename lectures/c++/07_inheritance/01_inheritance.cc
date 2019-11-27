@@ -20,7 +20,7 @@ struct Animal {  // parent class or base class or super class
 };
 
 struct Dog : public Animal {  // Dog is an Animal -> it will have its variables and its methods
-  // so here Dog has a n age and a weight
+  // so here Dog has an age and a weight
   void speak() const noexcept { std::cout << "Bau\n"; }
   Dog() noexcept = default;
   Dog(const unsigned int a, const double d) : Animal{a, d} {}  // delegating constructor -> much better than initializing directly the variables with Animal consructor
@@ -86,7 +86,7 @@ int main() {
     std::cout << std::endl;
 
     print_animal(s); // s is a Animal -> s is a reference!
-    // it's wrong: it doesn't print ssss not the dangerous variable -> it cannot access to the members of the children!
+    // it's wrong: it doesn't print ssss nor the dangerous variable -> it cannot access to the members of the children!
 
     std::cout << std::endl;
 

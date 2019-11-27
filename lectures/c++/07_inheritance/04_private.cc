@@ -1,6 +1,7 @@
 #include <ap_error.h>
 #include <iostream>
 
+// Now we see classes!
 class Animal { // parents should have private members!
   unsigned int age;
   double weight;
@@ -56,8 +57,8 @@ class NonDangerousSnake : public Snake {
 
 struct Python : public NonDangerousSnake {};
 
-using Anaconda = DangerousSnake;  // since c++11, like typedef -> but is better using! Here I'm introducing an alias
-// it's just an alias so it's not putted in the tree of hierarchy in Doxygens
+using Anaconda = DangerousSnake;  // since c++11, like typedef -> but is better "using"! Here I'm introducing an alias
+// it's just an alias so it's not put in the tree of hierarchy in Doxygen
 
 void print_animal(const Animal& a) noexcept {
   std::cout << "throught ref\n";
