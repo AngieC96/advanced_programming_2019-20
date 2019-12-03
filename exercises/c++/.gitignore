@@ -56,3 +56,7 @@ test.cc
 04_02_avoid_repeated_words.cc
 Prova_template.cc
 test.txt
+
+# Other files directory 04_
+02_helper_functions.cc
+
