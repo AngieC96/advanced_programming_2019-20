@@ -3,10 +3,8 @@ def is_palindrome(string_var):
     '''
     returns True if string_var is palindrome, False otherwise
     '''
+    
     ret = None
-    ########################
-    # code here
-    ########################
     return ret 
 
 def histogram_letters(string_var):     
@@ -15,10 +13,12 @@ def histogram_letters(string_var):
     and returns a dict
 
     '''
+    dict = {}
+    for i in range(len(string_var)):
+        pass
+    
     ret = None
-    ########################
-    # code here
-    ########################
+
     return ret 
 
 def get_most_frequent(list_var):

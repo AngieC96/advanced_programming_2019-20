@@ -89,7 +89,7 @@ Implement the following external helper functions (i.e., they are not part of th
 
 Modify the class `Vector<typename T>` presented during the lecture exploiting all the of C++14 features you know. Can you see any benefit?
 
- - The return type of a function can be 'auto'
+ - The return type of a function can be `auto`
 
 *Hints*:
 
@@ -108,3 +108,5 @@ Implement the range-for-loop for the class `Vector<class T>` we have written.
 ```c++
 for (auto;)
 ...
+
+```
