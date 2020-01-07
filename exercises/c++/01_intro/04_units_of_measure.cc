@@ -1,6 +1,6 @@
 #include <iostream>
 
-constexpr double inch2meter{0.0254};
+constexpr double inch2meter{0.0254}; // so you don't have magic numbers in the code!
 constexpr double meter2inch{1./inch2meter};
 constexpr int atm2Pa{101325};
 constexpr int bar2Pa{100000};

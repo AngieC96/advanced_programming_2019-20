@@ -77,7 +77,7 @@ int main() {
     std::cout << "test is false\n";
   }
 
-  // constants -> declaration of intent: I promis I will not change the value of this variable, please double check -> if you try to change it he compiler gives an error. Also, the performance is better: the code is faster it a variable is constant. There more optimization at run-time
+  // constants -> declaration of intent: I promis I will not change the value of this variable, please double check -> if you try to change it the compiler gives an error. Also, the performance is better: the code is faster if a variable is constant. There is more optimization at run-time
   const int cc{7};
   // cc = 9;			// error
 
