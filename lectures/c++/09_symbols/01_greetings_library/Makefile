@@ -1,10 +1,12 @@
 CXX = c++
-LANG = ENGLISH
+LANG = ITALIANO
 
 SRC = src/greetings.cc src/conclusion.cc
 OBJ = $(SRC:.cc=.o)
 
 all: libgreetings.so
+
+.PHONY: all
 
 libgreetings.so: $(OBJ)
 	$(CXX) -shared -o $@ $^
@@ -16,10 +18,13 @@ src/greetings.o: include/greetings.h
 
 src/conclusion.o: include/conclusion.h
 
+.PHONY: format
+
 format: $(SRC) include/greetings.h include/conclusion.h
 	@clang-format -i $^ 2>/dev/null || echo "Please install clang-format to run this commands"
 
 clean:
 	@rm -f *~ */*~ libgreetings.so src/*.o
 
-.PHONY: clean all format
+#.PHONY: clean all format
+.PHONY: clean
