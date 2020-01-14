@@ -673,3 +673,200 @@ Intestazioni di sezione:
 ```
 
 If I comment `-Wl,-rpath,$(GDIR)` there is no `RUNPATH`
+
+
+
+------
+
+## Internal - external
+
+```bash
+$ cd lectures/c++/09_symbols/
+
+$ cd 03_internal_external/
+
+$ ls
+circle.cc  constants.h  greek.cc  main.cc  Makefile
+
+$ cat main.cc 
+#include "constants.h"
+#include <iostream>
+
+double area_circle(const double);
+double golden_ratio(const double);
+extern int circle_counter;
+
+int main() {
+  std::cout << area_circle(1) << std::endl;
+  std::cout << area_circle(2) << std::endl;
+
+  std::cout << golden_ratio(1) << std::endl;
+
+  std::cout << circle_counter << std::endl;
+  std::cout << "[main] pi = " << pi << std::endl;
+
+  return 0;
+}
+```
+
+If we comment line 6 `extern int circle_counter;`:
+
+```bash
+$ make
+g++ -c greek.cc -o greek.o -g -std=c++11 -Wall -Wextra
+g++ -c main.cc -o main.o -g -std=c++11 -Wall -Wextra
+main.cc: In function ‘int main()’:
+main.cc:15:16: error: ‘circle_counter’ was not declared in this scope
+   std::cout << circle_counter << std::endl;
+                ^~~~~~~~~~~~~~
+Makefile:13: recipe for target 'main.o' failed
+make: *** [main.o] Error 1
+```
+
+If I remove the keyword `extern`:
+
+```
+$ make
+g++ -c main.cc -o main.o -g -std=c++11 -Wall -Wextra
+g++ -c circle.cc -o circle.o -g -std=c++11 -Wall -Wextra
+g++ -o exe greek.o main.o circle.o
+circle.o:/home/angela/Documenti/Advanced Programming/advanced_programming_2019-20/lectures/c++/09_symbols/03_internal_external/circle.cc:4: definizione multipla di "circle_counter"
+main.o:/home/angela/Documenti/Advanced Programming/advanced_programming_2019-20/lectures/c++/09_symbols/03_internal_external/main.cc:7: definito qui per la prima volta
+collect2: error: ld returned 1 exit status
+Makefile:10: recipe for target 'exe' failed
+make: *** [exe] Error 1
+```
+
+If I leave the line as `extern int circle_counter;`:
+
+```bash
+$ make
+g++ -c greek.cc -o greek.o -g -std=c++11 -Wall -Wextra
+g++ -c main.cc -o main.o -g -std=c++11 -Wall -Wextra
+g++ -c circle.cc -o circle.o -g -std=c++11 -Wall -Wextra
+g++ -o exe greek.o main.o circle.o
+```
+
+It is in a different compilation unit! How to solve this problem?
+
+`int circle_counter` the compiler will be happy but the linker not! → duplication of symbols!
+
+```bash
+$ make -n
+g++ -c greek.cc -o greek.o -g -std=c++11 -Wall -Wextra
+g++ -c main.cc -o main.o -g -std=c++11 -Wall -Wextra
+g++ -c circle.cc -o circle.o -g -std=c++11 -Wall -Wextra
+g++ -o exe greek.o main.o circle.o
+```
+
+ 
+
+`include` mean **copy and paste**!!! So the 
+
+`extern` → this item is defined in a different compilation unit, the linker will find it!
+
+`static` in front of a global symbol means internal linkage (a part of the warnings it works) → each compilation unit has its own copy of that variable. I can change the value of a static (= an internal linkage) variable
+
+`static` can be seen as the opposite of a global variable.
+
+c++ → `const` and `constexpr` implies `static`(= internal linkage) → in c NO!!!!! You have to write `static const`
+
+With `constexp` you require that the computation is done at compile time → you can trigger a little more optimization!
+
+
+
+```
+$ nm -C greek.o
+                 U __cxa_atexit
+                 U __dso_handle
+                 U _GLOBAL_OFFSET_TABLE_
+00000000000000ac t _GLOBAL__sub_I__Z12golden_ratiod
+0000000000000000 T golden_ratio(double)
+0000000000000063 t __static_initialization_and_destruction_0(int, int)
+0000000000000000 r pi
+0000000000000008 r phi
+                 U std::ostream::operator<<(double)
+                 U std::ostream::operator<<(std::ostream& (*)(std::ostream&))
+                 U std::ios_base::Init::Init()
+                 U std::ios_base::Init::~Init()
+                 U std::cout
+                 U std::basic_ostream<char, std::char_traits<char> >& std::endl<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&)
+0000000000000010 r std::piecewise_construct
+0000000000000000 b std::__ioinit
+                 U std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)
+```
+
+`nm` → tool to read the symbols defined in a binary. Lower case → internal linkage, upper case → external linkage. t: text=functions
+
+```bash
+$ nm -C circle.o
+0000000000000000 B circle_counter
+                 U __cxa_atexit
+                 U __dso_handle
+                 U _GLOBAL_OFFSET_TABLE_
+00000000000000c0 t _GLOBAL__sub_I_circle_counter
+0000000000000000 T area_circle(double)
+0000000000000077 t __static_initialization_and_destruction_0(int, int)
+0000000000000000 r pi
+0000000000000008 r phi
+                 U std::ostream::operator<<(double)
+                 U std::ostream::operator<<(std::ostream& (*)(std::ostream&))
+                 U std::ios_base::Init::Init()
+                 U std::ios_base::Init::~Init()
+                 U std::cout
+                 U std::basic_ostream<char, std::char_traits<char> >& std::endl<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&)
+0000000000000010 r std::piecewise_construct
+0000000000000004 b std::__ioinit
+                 U std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)
+```
+
+
+
+
+
+`static` → 3 meanings: create a static variable inside a scope of a function, static member creates a ... and they are not part of the class (they not occupy memory when you instantiate objects)
+
+
+
+
+
+```bash
+$ cat scr1.cc
+
+$ cat src2.cc
+
+$ nano func.h
+
+$ cat main.cc
+```
+
+
+
+### Classes
+
+```bash
+$ cat class.h
+
+$ cat src1.cc
+```
+
+
+
+
+
+If you don't have many many files, keep all the templates into a header → good advice, all the templates are safe (don't compile)
+
+```bash
+$ cat func.h
+
+$ make
+```
+
+
+
+
+
+```bash
+$ g++ src2.o src1.o main.o
+```
+
