@@ -7,4 +7,6 @@ extern "C"{
 
 int main(){
   hello();
+  printf("Hello world\n");
+  printf("Ciao\n");
 }
