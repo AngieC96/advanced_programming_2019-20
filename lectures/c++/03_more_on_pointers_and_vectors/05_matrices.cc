@@ -1,7 +1,7 @@
-#include <iomanip>
+#include <iomanip> // for setw()
 #include <iostream>
 
-void print_ma(int m[][5], int dim1);  // ugly and not flexible -> the size of the column MUS BE KNOWN! It can print only the matrices that have 5 columns! Here Ican use the ma[i][j]  syntax
+void print_ma(int m[][5], int dim1);  // ugly and not flexible -> the size of the column MUS BE KNOWN! It can print only the matrices that have 5 columns! Here I can use the ma[i][j] syntax
 // void print_ma(int m[][], int dim1, int dim2); // error second
 // dimension must be
 // knwon at compile time

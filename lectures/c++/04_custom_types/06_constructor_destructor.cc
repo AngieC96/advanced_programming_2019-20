@@ -23,7 +23,7 @@ Foo::Foo(const int i, const double d, const std::string& s) // Fully qualified n
       _s{s} //I can use the universal and uniform initializer {}
 // _i, _d, _s must be initialized in the same order they have been declared
 
-{ //body of the constructor: all the members have benn already constructed
+{ //body of the constructor: all the members have been already constructed
   // Two vays of initialize _i: one is the one we are using, one is this:
   // _i{i}; // I cannot use this, because here the variable are already been constructed! So I only have to assign a value to it, then I have to use the following mode:
   // _i = i; // I first construct the element and then I copy the value in it, with the {} I do only one operation!
@@ -52,9 +52,10 @@ std::ostream& operator<<(std::ostream& os, const Foo& f) { //std::ostream type o
 int main() {
   Foo f0;    // call default ctor
   Foo f1{};  // call default ctor
-  // Foo f2(); // compiler error: the compiler thinks that you are defining a function called f2 that doen't take variables and returns a Foo element
+  // Foo f2(); // compiler error: the compiler thinks that you are defining a function called f2 that doesn't take variables and returns a Foo element
 
   Foo f2{8, 2.2, "hello"}; // I call the constructor
+  //Foo f2 = Foo(8, 2.2, "hello"); // equal
   //Foo f2(8, 2.2, "hello"); //valid but prefer {}
   // This is also fine -> but is better to use curly braces, so it's clear you're initializing the object
   std::cout << "f0: " << f0 << "f1: " << f1 << "f2: " << f2 << std::endl;

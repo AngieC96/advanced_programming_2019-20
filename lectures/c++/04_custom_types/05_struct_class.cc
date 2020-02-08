@@ -4,7 +4,8 @@
 
 // c++ at the beginning meant 'c with classes'
 // Difference between c structs and c++ classes: in classes I can put data AND functions! I can group them together in a single box
-//difference between c++ structs and c++ classes: the default visibility of the symbols. In struct everything is pubblic: from the outside I can see everything that is in the struct, while in the classes everything is private: from outside I cannot access to anything
+//difference between c++ structs and c++ classes: the default visibility of the symbols. In struct everything is pubblic: from
+// the outside I can see everything that is in the struct, while in the classes everything is private: from outside I cannot access to anything
 
 struct Point_s {
   double x;
@@ -40,10 +41,10 @@ int main() {
 
   Point_s* p = &ps; // Pointer to a class: I can initialize it with a variable of that class
   // Size of a class >= sum of the sizes of its elements
-  p->x = 0.0; // How can I access the data of a pointer? I CANNOT use. I need to use the arrow opertor '->'
+  p->x = 0.0; // How can I access the data of a pointer? I CANNOT use "." I need to use the arrow opertor '->'
   p->print(); // It's the same with functions
 
-  auto& pr = ps; // pr is a reference to the class object ps
+  auto& pr = ps; // pr is a reference to the class object ps, instantiation of the struct
   ++pr.x;
   pr.print(); // equal to ps.print() -> a reference is an alias!
   // How can I know the type of pr? Trigger a compiler error: use a template function and call pr

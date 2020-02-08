@@ -20,9 +20,9 @@ T* init(const std::size_t l) {
 template <class T>  //class is equal to typename
 void debug(T); //I'm declaring the function, but not defining it
 
-int main() {  //erevry executable contains only ONE function named main that returns an interger -> it's the first function that is called!
+int main() {  //every executable contains only ONE function named main that returns an interger -> it's the first function that is called!
 //auto is a keyword to automatically determinate the type of the variable
-// DON'T USE THE {} for the declaration of variables, USE = !
+//with auto DON'T USE THE {} for the declaration of variables, USE = !
   auto b = true;          // a bool
   auto ch = 'x';          // a char
   auto i = 123;           // an int -> by standard
@@ -40,6 +40,8 @@ int main() {  //erevry executable contains only ONE function named main that ret
   //Since I don't put the <type> part, the compiler will say to me what to put:  riferimento non definito a "void debug<bool*>(bool*)" -> now I know the type of the variable!
 
   std::cout << pb << std::endl;
+  std::cout << &b << std::endl;
+  std::cout << *pb << std::endl;
 
   auto ps = init<double>(11);
   delete[] ps;

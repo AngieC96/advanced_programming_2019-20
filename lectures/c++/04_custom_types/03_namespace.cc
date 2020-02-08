@@ -15,7 +15,7 @@ namespace choose_a_name {
   }  // namespace nested
 }  // namespace choose_a_name
 
-// we travel in the namesaces using the :: operator
+// we travel in the namesaces using the :: operator, called SCOPE RESOLUTOR
 
 int main() {
   // variable = 42; // error

@@ -31,7 +31,7 @@ void dwim(const color c) {
 int main() {
   color opt{red};
   // opt = 3; // cannot assign int to enum
-  int a{opt};  // but they implicitly converts to integers, so I can initialize  an integer with an enum
+  int a{opt};  // but they implicitly converts to integers, so I can initialize an integer with an enum
 
   dwim(opt);
 

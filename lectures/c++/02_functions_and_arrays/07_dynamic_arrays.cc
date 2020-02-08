@@ -4,7 +4,7 @@ int main() {
   std::cout << "Please insert array lenght: ";
   std::size_t n;
   std::cin >> n;
-  //with c++ compiler you have to know the lenght of the array at compile-time and NOT at run-time!
+  //with c++ compiler you have to know the length of the array at compile-time and NOT at run-time!
   int* da{new int[n]};  // allocated on the HEAP, or free-store, free-memeory
   //new returns a pointer! The address of the house that has been allocated in the heap -> then we store it in the 'da' variable
 

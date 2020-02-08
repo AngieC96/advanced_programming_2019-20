@@ -77,7 +77,9 @@ int main() {
     std::cout << "test is false\n";
   }
 
-  // constants -> declaration of intent: I promis I will not change the value of this variable, please double check -> if you try to change it the compiler gives an error. Also, the performance is better: the code is faster if a variable is constant. There is more optimization at run-time
+  // constants -> declaration of intent: I promis I will not change the value of this variable, please double check
+  //-> if you try to change it the compiler gives an error. Also, the performance is better: the code is faster if a variable is constant.
+  //There is more optimization at run-time
   const int cc{7};
   // cc = 9;			// error
 
@@ -89,7 +91,7 @@ int main() {
 
   // cast to void to suppress warning of unused variable
   (void)ve;
-  long double lpi = 3.141592653589793238462L;
+  long double lpi = 3.141592653589793238462L; //the L in the end gives the variable the 'long' type
   std::cout << std::setprecision(50) << M_PI << std::endl;
   std::cout << std::hex << 43 << std::endl;
   std::cout << std::oct << 43 << std::endl;

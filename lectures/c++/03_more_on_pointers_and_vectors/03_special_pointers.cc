@@ -25,19 +25,20 @@ int main() {
   pv = ap;
   pv = pi;
 
-  pi = nullptr;  //nullptr = 'nothing' -> new type -> it points to nothing
+  pi = nullptr;  //nullptr = 'nothing' -> new type -> it points to nothing. There exist implicit conversions from nullptr to null pointer value of any pointer type and any pointer to member type
   ppc = nullptr;
-  // ap = nullptr;  // error, why?
+  // ap = nullptr;  // error, why? -> error: incompatible types in assignment of ‘std::nullptr_t’ to ‘int* [7]’ -> it isn't automatically deferentiated!
+  // ap is a vector, not a pointer!
   ap[0] = nullptr;
   int** bbb; //pointer to a pointer integer
-  bbb = ap;
+  bbb = ap; // bbb points to the pointer of the frist element
   pv = nullptr;
-  pi2 = 0;  // older codes. gets the nullptr
+  pi2 = 0;  // older codes. gets the nullptr -> older codes: #define NULL = 0, now #define NULL nullptr
 
   // pi = NULL; // please don't do this. Never mix NULL and nullptr, use ONLY nullptr
 
   double* da{new double[5]{}};
-  delete[] da;  // dangling pointer = pointer that points to a memory location that was freed
+  delete[] da;  // dangling pointer = pointer that points to a memory location that was freed -> it is still pointing to that memory location!
   da = nullptr;  //to be sure not to access it later
 
   if (pi != nullptr)
@@ -54,7 +55,11 @@ int main() {
   if (!pi)
     std::cout << "pi is nullptr and I CANNOT dereference it \n";
 
+
   // strings are special type of char[] (array of char): they have one more last element to understand that the string is finished
+  // string literal: "Hello" -> it is a const char[6] that contains 'H', 'e', 'l', 'l', 'o', '\0'
+  // A string literal is not necessarily a c string: if a string literal has embedded a null characters \0, it represents an array that contains morethan one string.
+  const char *parola = "abc\0efg"; // std::strlen(p)==3, but the array has size 8
   char word[]{"Hello"};
   char word2[]{'H', 'e', 'l', 'l', 'o', 0};
   if (strcmp(word, word2) == 0)  // word == word2 is
@@ -65,8 +70,8 @@ int main() {
   else
     std::cout << "different\n";
 
-  int (*fp)(const char*); //I'm defining a pointer to function called fp that point to all the funtions that takes a const char * and returns an int -> parenthesis are mandatory!
-  int *fp(const char*);  //defining a funtion fp that returns a int* and takes a const char*
+  int (*fp)(const char*); //I'm defining a pointer to function called fp that points to all the functions that takes a const char * and returns an int -> parenthesis are mandatory!
+  //int *fp(const char*);  //defining a funtion fp that returns a int* and takes a const char*
   fp = func1;
 
   fp("hello");
@@ -74,11 +79,12 @@ int main() {
   fp = &func2;
   fp("world");
 
-  // fp = func3; // error: wrong signature
+  // fp = func3; // error: wrong signature -> func3 returns a void and not an integer!
   auto xx = func3;
 
   xx("auto");
 
+  //decltype -> Inspects the declared type of an entity or the type and value category of an expression
   decltype(&func3) x = func3; //I'm declaring a varible of type whatever is the returning type of the func3 function. It is instead of:
   //void (*x) (const char *) = func3; -> if I change the signature of func3 after having written this line I have to change this line manually
   x("decltype");

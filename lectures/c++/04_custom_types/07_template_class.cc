@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-// LEt's write our class Vector
+// Let's write our class Vector
 template <typename num>
 class Vector {
   num* elem; // there will be an array creation
@@ -14,10 +14,11 @@ class Vector {
   // automatically release the acquired memory
   ~Vector() { delete[] elem; }
 
-  // RAII (Resource Acquisition Is Initialization): you require an initialization and release it in the constructor -> no memory leaks!
+  // RAII (Resource Acquisition Is Initialization): you require an initialization and release it in the destructor -> no memory leaks!
 
   // try to remove the const and recompile
   std::size_t size() const { return _size; }  //const: when I use the object I will not modify it
+  //std::size_t size() { return _size; } //I the overloading of << I cannot call size() anymore! -> to use this line I have to remove the const in "const Vector<T>& v"
 
   num& operator[](const std::size_t i) { return elem[i]; }
 

@@ -125,6 +125,9 @@ Vector<T>& Vector<T>::operator=(const Vector& v) {
 
   // or we do everything by hand..
   // and we can do not reset and call new again if the sizes are suitable
+  // we copy first the size and ten we loop on all the elements and copy them:
+  //_size = v._size
+  //elem = std::copy(v.begin(), v.end(), begin());
 
   std::cout << ")\n";
   return *this;
@@ -198,9 +201,17 @@ int main() {
   std::cout << "\nNRVO: Named Return Value Optimization\n";
   // v4 is created and then res is called inside it, so there's not a call to the move ctor -> It's faster!
 
+  std::cout << "\nv4 = v3 + v1; calls\n";
+  v4 = v3 + v2;
+  std::cout << "v4 = " << v4;
+
   std::cout << "\nv4 = v3 + v3 + v2 + v3; calls\n";
   v4 = v3 + v3 + v2 + v3;
   std::cout << "v4 = " << v4;
+
+  std::cout << "\nVector<double> v5{v3 + v3 + v2}; calls\n";
+  Vector<double> v5{v3 + v3 + v2};
+  std::cout << "v5 = " << v5;
 
   return 0;
 }

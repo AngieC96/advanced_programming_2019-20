@@ -1,6 +1,6 @@
 #include <iostream>
 
-//Can I aoid to put the type? YES, with templates -> a mechanism to write a good code at compile time
+//Can I avoid to put the type? YES, with templates -> a mechanism to write a good code at compile time
 template <typename T>
 T dwim(const T a, const T b);
 
@@ -12,8 +12,8 @@ int main() {
 
   std::cout << dwim<int>(a, b) << '\n' //I can specifty what the compiler should use instead of T
             << dwim(a, b) << '\n'
-            << dwim(c, d) << '\n' //if the compiler can infer the type of the template, you can omit <type>
-            << dwim<int>(c, d) << '\n'
+            << dwim(c, d) << '\n' // if the compiler can infer the type of the template, you can omit <type>
+            << dwim<int>(c, d) << '\n' // if you pass the arguments as int it makes the sum between integers!
             << dwim(e, f) << '\n'
             << dwim(g, h) << std::endl;
   return 0;

@@ -21,11 +21,12 @@ int main() {
 
   for (auto x : {7, 8, 9})
     v1.push_back(x); //to expand dinamically the vector -> push_back() adds an element at a time
+    //emplace.back() -> you can pass directly the arguments of the constructor of the type you are passing, and emplace construct the elements in place, without a move or a copy assignment! VARIADIC FUNCTION: it can accept different number of arguments!
 
   print_vector(v1, "v1 after push_back");
 
   for (auto i = 0u; i < v1.size(); ++i)
-    std::cout << "v[" << i << "] = " << v1[i] << std::endl;  //v1[i] -> subscripting operator
+    std::cout << "v[" << i << "] = " << v1[i] << std::endl;  //v1[i] -> subscripting operator: to access elements
 
   std::cout << v1[3] << " " << v1[78] << std::endl;        // no bounds checking
   std::cout << v1.at(3) << " " << v1.at(78) << std::endl;  // bounds checking

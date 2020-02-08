@@ -3,12 +3,13 @@
 
 // template <class T, std::size_t N>  //statics arrays that lives in the stack -> I have to specify the type and the length
 // struct array;
+//it has FIXED memory!
 
 int main() {
   std::array<int, 4> a{1, 2, 3, 4};
   std::array<int, 4> b{a};  // I can copy element-wise from another std::array
                             // this is not possible with plain built-in arrays
-  b = a;
+  b = a; //b is another object different from a, that contains the elemens of a!
   for (auto x : a)  //new syntax since c++11: auto is the type of each element of the array that is stored in x
     std::cout << x << " ";
   std::cout << std::endl;
@@ -19,7 +20,7 @@ int main() {
 
   a[0] = 0;  // same subscripting operator without bound checking
 
-  for (const auto x : a)
+  for (const auto x : a) //through x I CANNOT modify a!
     std::cout << x << " ";
   std::cout << std::endl;
 

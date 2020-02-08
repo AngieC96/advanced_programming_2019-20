@@ -6,6 +6,7 @@ struct X {  //It's a built-it type, so it is not initialized so you have garbage
 
 int main() {
   X x1;                 // default ctor
+  //x1.member = 'a';
   X x2{x1};             // copy ctor -> you are constructed the object with this value
   X x3{std::move(x2)};  // move ctor
   X x4{};               // default ctor calling {} (the default ctor) to each member (each member calls is own default ctor)
@@ -13,6 +14,8 @@ int main() {
   X x5;                 // default ctor
   x5 = std::move(x4);   // move assignment
   std::cout << x5.member << std::endl;  // what do you expect??
+  std::cout << "x1 = " << x1.member << std::endl;
+  std::cout << "x2 = " << x2.member << std::endl;
   return 0;
 }
 
