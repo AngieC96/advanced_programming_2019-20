@@ -1,0 +1,119 @@
+#############################################################################
+# Makefile for building: AP_BST
+#############################################################################
+
+MAKEFILE      = Makefile
+
+####### Compiler, tools and options
+
+CC            = gcc
+CXX           = g++
+DEFINES       = -DDEBUG
+CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -Wall -W -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -march=native -funroll-loops -g -DDEBUG -std=c++1y $(EXPORT_ARCH_ARGS) -Wall -W -fPIC $(DEFINES)
+INCPATH       = -I../AP_BST -I.
+DEL_FILE      = rm -f
+CHK_DIR_EXISTS= test -d
+MKDIR         = mkdir -p
+COPY          = cp -f
+COPY_FILE     = cp -f
+COPY_DIR      = cp -f -R
+INSTALL_FILE  = install -m 644 -p
+INSTALL_PROGRAM = install -m 755 -p
+INSTALL_DIR   = cp -f -R
+DEL_FILE      = rm -f
+SYMLINK       = ln -f -s
+DEL_DIR       = rmdir
+MOVE          = mv -f
+TAR           = tar -cf
+COMPRESS      = gzip -9f
+DISTNAME      = AP_BST1.0.0
+DISTDIR       = .tmp/AP_BST1.0.0
+LINK          = g++
+LFLAGS        = -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -Wl,-rpath,@executable_path/Frameworks
+LIBS          = $(SUBLIBS)  
+AR            = ar cq
+RANLIB        = ranlib -s
+SED           = sed
+STRIP         = strip
+
+####### Output directory
+
+OBJECTS_DIR   = ./
+
+####### Files
+
+SOURCES       = main.cpp
+OBJECTS       = main.o
+DIST          = AP_BST.pro \
+                README.md \
+                LICENSE \
+                Makefile \
+                Doxygen
+DESTDIR       = 
+TARGET        = AP_BST
+
+####### Custom Variables
+EXPORT_ACTIVE_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(ARCHS))
+EXPORT_VALID_ARCHS = x86_64
+EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_ARCHS), $(EXPORT_VALID_ARCHS)), -arch $(arch))
+
+
+first: all
+####### Build rules
+
+$(TARGET):  $(OBJECTS)  
+	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
+
+all: Makefile $(TARGET)
+
+dist: distdir FORCE
+	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
+
+distdir: FORCE
+	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
+	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+
+
+clean: compiler_clean 
+	-$(DEL_FILE) $(OBJECTS)
+	-$(DEL_FILE) *~ core *.core
+
+
+distclean: clean 
+	-$(DEL_FILE) $(TARGET) 
+	-$(DEL_FILE) .qmake.stash
+
+
+####### Sub-libraries
+
+doc:
+	DOXYGEN_INPUT=. DOXYGEN_USE_MATHJAX=YES doxygen /Users/matteo/GitHub/AP_BST/Doxyfile
+
+check: first
+
+benchmark: first
+
+compiler_rez_source_make_all:
+compiler_rez_source_clean:
+compiler_yacc_decl_make_all:
+compiler_yacc_decl_clean:
+compiler_yacc_impl_make_all:
+compiler_yacc_impl_clean:
+compiler_lex_make_all:
+compiler_lex_clean:
+compiler_clean: 
+
+####### Compile
+
+main.o: main.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
+
+####### Install
+
+install:  FORCE
+
+uninstall:  FORCE
+
+FORCE:
+

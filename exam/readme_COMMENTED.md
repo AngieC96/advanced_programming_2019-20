@@ -84,7 +84,7 @@ std::pair<iterator,bool> emplace(Types&&... args);
 ```
 Inserts a new element into the container constructed in-place with the given args if there is no element with the key in the container.
 
-**Difference from Insert**:we can write
+**Difference from Insert**: we can write
 
 ```c++
 bst<int,int> t;
@@ -179,7 +179,7 @@ Removes the element (if one exists) with the key equivalent to key. Find a way t
 ### Hints
 - **Big hint** use `std::pair<const key_type,value_type>`, which is defined in the header `utility`
 - start coding and using the iterators ASAP.
-- Sartori would expect to see 3 classes: bst, iterator, node
+- Sartori would expect to see 3 classes: bst, iterator, Node
 - class Node:
 
 ```c++
@@ -188,7 +188,7 @@ struct Node{
 	val_t v;
 } &#x274C; &#x274C; &#x274C;
 
-std::pair<..> vaule;
+std::pair<..> value;
 ```
 
 - (const or not if iterator is const or not)
@@ -330,11 +330,12 @@ If I want to define all the classes in a different file:
   };
   #endif
   #include "bits_bst.hpp"
+  ```
 ```
   
   bits_bst.hpp
   
-  ```
+```
   #ifndef __bst__
   #define __bst__
   #include "bst.hpp"
@@ -344,3 +345,5 @@ If I want to define all the classes in a different file:
   
   
 
+
+  ```
