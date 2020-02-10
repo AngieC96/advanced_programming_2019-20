@@ -3,7 +3,7 @@
 
 #include "ap_error.h"
 
-// implment a square root function that "deals with" negative
+// implement a square root function that "deals with" negative
 // numbers. Moreover according to the logic of the program, d should
 // never be greater than 50
 double square_root(const double d);
@@ -25,7 +25,7 @@ int main() {
     std::cerr << e.message << std::endl;
     return 2;
   } catch (const std::exception& e) {
-    std::cerr << e.what() << std::endl;
+    std::cerr << e.what() << std::endl; // what() is a function of std::exception that return a null terminated caracter sequence (= a string) that maybe used to identify the exception
     return 1;
   } catch (...) {
     std::cerr << "Unknown exception. Aborting.\n";
@@ -40,14 +40,12 @@ double square_root(const double d) {
       << "In our library the argument must be positive and less or equal than "
          "50.\n";
 
-  // AP_ERROR(d >= 0 && d <= 50) << "In our library the argument must be
-  // positive "
+  // AP_ERROR(d >= 0 && d <= 50) << "In our library the argument must be positive "
   //                                "and less or equal than 50.\n";
 
   // AP_ERROR_GE(d, 0) << "Cannot handle negative numbers.\n";
 
-  // AP_ERROR_LE(d, 50) << "According to the implemented algorithm, the argument
-  // "
+  // AP_ERROR_LE(d, 50) << "According to the implemented algorithm, the argument"
   //                       "must be less than 50.\n";
 
   // AP_ERROR_IN_RANGE(d,0,50);  // to check if the value is in the range, you can also add an additional message

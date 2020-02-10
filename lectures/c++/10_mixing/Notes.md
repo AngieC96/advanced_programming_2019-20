@@ -17,7 +17,7 @@ $ ls
 
 ```
 
-To see the symboly declared into an object file:
+To see the symbols declared into an object file:
 
 ```bash
 $ cd 01_symbols/
@@ -97,7 +97,7 @@ The generated symbols MUS BE UNIQUE! So since in `c++` you can do overloading (d
 
 
 
-**Recap on the visisbility of the symbols:**
+**Recap on the visibility of the symbols:**
 
 ```bash
 $ cat 03_visibility.c
@@ -129,14 +129,14 @@ $ nm 03_visibility.o
 000000000000002a T main
                  U printf
 0000000000000000 r val1
-0000000000000004 R val2
-0000000000000000 d val3 // internal linkage
-0000000000000004 D val4 //external linkage
+0000000000000004 R val2 # external linkage
+0000000000000000 d val3 # internal linkage
+0000000000000004 D val4 # external linkage
 ```
 
 Weak symbols are implementation dependent! You can have surprises!!!!
 
-If you write a `printf` function without putting any variable but only a string, the compiler will call the`puts`function because it is simpler!
+If you write a `printf` function without putting any variable but only a string, the compiler will call the `puts` function because it is simpler!
 
 In the code
 
@@ -176,7 +176,7 @@ int main(){
 
 `extern "C"` → Please export the symbols in `C` style
 
-```
+```bash
 $ nm 04_extern.o
                  U __cxa_atexit
                  U __dso_handle
@@ -194,6 +194,8 @@ $ nm 04_extern.o
 0000000000000000 b _ZStL8__ioinit
                  U _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
 ```
+
+Now `hello` is called as the function! And not `_Z5hellov` as it would be in `C++`.
 
 When you are in an ` extern "C"` block you cannot implement function overloading for example!
 
@@ -227,7 +229,7 @@ It linked automatically against `C` language! `libgcc_s.so.1`   ==???==
 
 ### `C` in `C++`
 
-How can I call a `C` function from a Cc++` code?
+How can I call a `C` function from a `C++` code?
 
 ```bash
 $ cd ../02_c_from_cpp/
@@ -262,7 +264,7 @@ int main() {
 }
 ```
 
-I have to inform the `C++` compiler that the compilation will be finenano
+I have to inform the `C++` compiler that the compilation will be fine
 
 ```
 $ nm hello.o 
@@ -284,7 +286,7 @@ $ nm main.o
 
 You can write the `C++` plug-in and then you have to figure out how to use them in the `C` code
 
-`Python` id written in `C` so you cannot use `C++` inside it!
+`Python` is written in `C` so you cannot use `C++` inside it!
 
 ## `C++` from `C`
 
@@ -399,6 +401,8 @@ cpp2c.cc  cpp2c.o  exe  main.c  main.o  Makefile
 
 
 
+### Class linkage
+
 ```bash
 $ cd ../02_class/
 
@@ -500,7 +504,7 @@ $ cat class_c_interface.h
 
 typedef void* Foo_c; // pointer to void = pointer to whatever!
 
-#ifdef __cplusplus
+#ifdef __cplusplus // used when I compile with c++!
 extern "C" {
 #endif
 
@@ -517,7 +521,7 @@ int get_a(Foo_c); // cannot return a refernce, but retruns by vaue! I have to ca
 #endif /* _CLASS_C_INTERFACE_H_ */
 ```
 
-You compiler with:
+You compile with:
 
 ```bash
 $ make
@@ -558,7 +562,7 @@ We need to write `#ifdef __cplusplus`
 
 You are able only to export non templated symbols, because `C` doesn't know templates! You have to write the `int` function, the `double` function, ecc ... → there are packages that does this, but they are not standard and they underneath do this thing
 
-If `foo` was tmplated, we should write like this:
+If `foo` was templated, we should write like this:
 
 ```
 $ cat class_c_interface.cpp 
@@ -591,7 +595,7 @@ Templates are not supported in `C`! We need to explicitly instantiate tehm!
 
 ## Python
 
-You cannot call `C++` from `Python`! `Python` is written in `C ` so it doesn't know `C++`! If you want to use your `C++` interface it must me a shared library!
+You cannot call `C++` from `Python`! `Python` is written in `C ` so it doesn't know `C++`! If you want to use your `C++` interface it must be a shared library!
 
 ```bash
 $ cd ../../05_ctypes/
@@ -609,7 +613,7 @@ The file `main.py`
 #/usr/bin/env python3
 
 from ctypes import *
-dso = CDLL("./libhello.so") # import shared object on POSIX compatib$
+dso = CDLL("./libhello.so") # import shared object on POSIX compatible OS
 
 ## functions w/o args
 dso.hello()
@@ -776,13 +780,17 @@ int main(int argc, char **argv) {
 }
 ```
 
-`Fortran` appends an underscore in the functions' names and passes averything by reference: so pointers everywhere!
+`Fortran` appends an underscore in the functions' names and passes everything by reference: so pointers everywhere!
 
 
 
 
 
-## Other
+## Libdl
+
+How to link a library that you didn't wrote: you have the file `.so` and the files `.h`. If you install the file `.so`, you have NOT the headers! While if you have to link the file `.so` you will have also the headers.
+
+Let's see what to do if you have a compiled library so you have only the file `.so`.
 
 ```bash
 $ cd ../04_libdl/
@@ -797,12 +805,13 @@ int main(int argc, char* argv[]) {
   void* handle; /* handle for dynamic object */
   void (*hi)(); /* function pointer for symbol */
   int (*rep)(char*);
-  handle = dlopen("./libhello.so", RTLD_LAZY);
+  handle = dlopen("./libhello.so", RTLD_LAZY); # If it succeeded to load the library
   if (handle) {
-    hi = (void (*)())dlsym(handle, "hello");
-    (*hi)();
-    rep = (int (*)(char*))dlsym(handle, "repeat");
-    rep("I dont't care what fox says");
+    hi = (void (*)())dlsym(handle, "hello"); # cerca la funzione che si chiama hello e mettila nella variabile hi
+    (*hi)(); # chiamo la funzione hello della libraria
+    hi(); # works as hello!
+    rep = (int (*)(char*))dlsym(handle, "repeat"); # re-do, but use function repeat
+    rep("I dont't care what fox says"); # Now I can use it as the function repeat!
     dlclose(handle);
   }
   return 0;

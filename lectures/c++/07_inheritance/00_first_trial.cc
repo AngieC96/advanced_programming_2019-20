@@ -49,7 +49,7 @@ int main() {
 
     std::cout << std::endl;
 
-    Dog d1{0, 0.6};
+    Dog d1{1, 0.6};
     d1.info();
     d1.speak();
 

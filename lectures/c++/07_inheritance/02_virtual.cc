@@ -2,7 +2,7 @@
 #include <iostream>
 
 struct Animal {
-  // You inherit not only data but also the INTERFACE! -> I'm forced to inplement all the methods that the base class has!
+  // You inherit not only data but also the INTERFACE! -> I'm forced to implement all the methods that the base class has!
   unsigned int age;
   double weight;
 
@@ -13,7 +13,7 @@ struct Animal {
   Animal() : Animal{0, 0} {}  // delegating constructor
 
    // functions of the children should be marked as virtual
-  virtual void speak() const = 0;  // pure virtual function ==> abstract class -> you cannnot istantiate an object of this class -> an abstract class is a class with at least one virtual method
+  virtual void speak() const = 0;  // this is a pure virtual function: we assign 0 to its implementation ==> abstract class -> you cannnot istantiate an object of this class -> an abstract class is a class with at least one pure virtual method
   virtual void info() const noexcept {
     std::cout << "age:\t" << age << '\n' << "weight:\t" << weight << '\n';
   }
@@ -26,7 +26,7 @@ struct Dog : public Animal {
   // override -> with virual -> same function, very similar parameters, DIFFERENT classes
   // c++11 -> override keyword to do the override, instead of repeating virtual
   // once if you exchanged two paraemters the compiler created a new virtual function, instead with override the compiler
-  // double checked that there is an equal virtual function in the base class, otherwise it doesn't compile
+  // double checks that there is an equal virtual function in the base class, otherwise it doesn't compile
   // overload -> same name of function with different parameters
   Dog() = default;
   Dog(const unsigned int a, const double d) : Animal{a, d} {}
@@ -36,7 +36,7 @@ struct Snake : public Animal {
   bool dangerous;
   Snake(const unsigned int a, const double w, const bool b)
       : Animal{a, w}, dangerous{b} {}
-  explicit Snake(const bool b) : Animal{}, dangerous{b} {}
+  explicit Snake(const bool b) : Animal{}, dangerous{b} {}  //Why explicit???
   void info() const noexcept override {
     Animal::info();
     std::cout << "dangerous:\t" << (dangerous ? "true" : "false") << std::endl;

@@ -4,7 +4,7 @@
 // EXCEPTIONS are exceptional events, not necessarily errors
 
 // implment a square root function that "deals with" negative
-// numbers. Moreover according to the logic of the program, d should
+// numbers. Moreover according to the logic of the program, 'd' should
 // never be greater than 50
 double square_root(const double d);
 

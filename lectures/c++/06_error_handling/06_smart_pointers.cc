@@ -4,7 +4,7 @@
 #include "ap_error.h"
 
 // two types of smart pointers: unique pointers or shared pointers
-// shared pointers have to know how many peopole share it 
+// shared pointers have to know how many peopole share it -> they are slower
 
 class Vector {
   std::unique_ptr<double[]> elem;  // if someone throws an exception, unique pointers take care of that
@@ -27,6 +27,7 @@ class ManyResources {
   ManyResources() : ptr{new double[5]}, v{3} {
     std::cout << "ManyResources ctor\n";
     AP_ERROR(false) << "I am simulating something wrong.\n";
+    // Now I don't need to delete manually the pointer!
   }
   ~ManyResources() noexcept { std::cout << "~ManyResources\n"; }
 };

@@ -1,0 +1,70 @@
+\hypertarget{classSnake}{}\section{Snake Class Reference}
+\label{classSnake}\index{Snake@{Snake}}
+
+
+{\ttfamily \#include $<$snake.\+h$>$}
+
+Inheritance diagram for Snake\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classSnake}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSnake_a57f45c42d54f744517283ed5411f01d7}{Snake} (const unsigned int a, const double w, const bool b)
+\item 
+\hyperlink{classSnake_a3155ff2573c745c17c8b8ca8b90b5926}{Snake} (const bool b)
+\item 
+void \hyperlink{classSnake_a502e4a95caef8a4220527a31cc67d8dc}{info} () const noexcept override
+\item 
+void \hyperlink{classSnake_ade354a78eec6fbf9c3d72a519089c65d}{speak} () const noexcept override
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base class for snakes. It specializes into \hyperlink{classDangerousSnake}{Dangerous\+Snake} and \hyperlink{classNonDangerousSnake}{Non\+Dangerous\+Snake}. It is derived from class \hyperlink{classAnimal}{Animal} and add a boolean Snake\+::dangerous to specify if a type of snake is dangerous or not. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSnake_a57f45c42d54f744517283ed5411f01d7}\label{classSnake_a57f45c42d54f744517283ed5411f01d7}} 
+\index{Snake@{Snake}!Snake@{Snake}}
+\index{Snake@{Snake}!Snake@{Snake}}
+\subsubsection{\texorpdfstring{Snake()}{Snake()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Snake\+::\+Snake (\begin{DoxyParamCaption}\item[{const unsigned int}]{a,  }\item[{const double}]{w,  }\item[{const bool}]{b }\end{DoxyParamCaption})}
+
+Constructor. Takes all the arguments to construct an \hyperlink{classAnimal}{Animal} plus the additional boolean \mbox{\Hypertarget{classSnake_a3155ff2573c745c17c8b8ca8b90b5926}\label{classSnake_a3155ff2573c745c17c8b8ca8b90b5926}} 
+\index{Snake@{Snake}!Snake@{Snake}}
+\index{Snake@{Snake}!Snake@{Snake}}
+\subsubsection{\texorpdfstring{Snake()}{Snake()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Snake\+::\+Snake (\begin{DoxyParamCaption}\item[{const bool}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Calls the default constructor for \hyperlink{classAnimal}{Animal}, and the {\ttfamily dangerous} is set to {\ttfamily b} 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSnake_a502e4a95caef8a4220527a31cc67d8dc}\label{classSnake_a502e4a95caef8a4220527a31cc67d8dc}} 
+\index{Snake@{Snake}!info@{info}}
+\index{info@{info}!Snake@{Snake}}
+\subsubsection{\texorpdfstring{info()}{info()}}
+{\footnotesize\ttfamily void Snake\+::info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+Print details. 
+
+Reimplemented from \hyperlink{classAnimal_a72994a2bb769667d277845351462246f}{Animal}.
+
+\mbox{\Hypertarget{classSnake_ade354a78eec6fbf9c3d72a519089c65d}\label{classSnake_ade354a78eec6fbf9c3d72a519089c65d}} 
+\index{Snake@{Snake}!speak@{speak}}
+\index{speak@{speak}!Snake@{Snake}}
+\subsubsection{\texorpdfstring{speak()}{speak()}}
+{\footnotesize\ttfamily void Snake\+::speak (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+\hyperlink{classSnake}{Snake}\textquotesingle{}s call 
+
+Implements \hyperlink{classAnimal_ae3f640ffd5ebec66c3836b63fd11fc27}{Animal}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/snake.\+h\item 
+src/snake.\+cc\end{DoxyCompactItemize}

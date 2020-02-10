@@ -18,20 +18,33 @@ int main() {
   std::cout << "\n\npointers\n";
   Base* p = new Derived;
   delete p;  // I invoke the destructor ~Base because p is a Base pointer.
-  // But without the destructor ~BAse() virtual, the destructor ~Derived() is not called!
+  // But without the destructor ~Base() virtual, the destructor ~Derived() is not called!
+
+  // Without virtual:
+  //pointers
+  //Base
+  //Derived
+  //~Base
+
+  // With virtual:
+  //pointers
+  //Base
+  //Derived
+  //~Derived
+  //~Base
 
   return 0;
 }
 
-// template<typename T>   wrapper to measure the complexity of an algrithm
+// template<typename T>   //wrapper to measure the complexity of an algrithm
 // struct measure {
 //     T value;
 //     measure(){++ default.ctor;} // counter for the default ctor
-//     frined
+//     friend
 //      bool operator==(const T& a, const T& b) {
 //         ++eq_counter;
 //           return a.value==b.value;
-// }
+//      }
 // }
 
 // sort<double>

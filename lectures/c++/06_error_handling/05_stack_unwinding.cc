@@ -45,7 +45,7 @@ class ManyResources {
     }
   }
 
-  ~ManyResources() noexcept {
+  ~ManyResources() noexcept { // noexcept -> the function is declared not to throw any exceptions
     std::cout << "Manyresources" << std::endl;
     delete[] ptr;  // <----
   }
@@ -63,7 +63,7 @@ int main() {
   } catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
 
-    delete[] raw_ptr;  // <--- try to comment this and run valgrind or use the
+    //delete[] raw_ptr;  // <--- try to comment this and run valgrind or use the
                        // sanitize library
     return 1;
 

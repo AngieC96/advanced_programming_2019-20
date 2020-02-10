@@ -9,7 +9,7 @@
 #include <memory>  //unique_ptr
 #include <iterator>
 #include <vector>
-#include <algorithmic>
+#include <algorithm>
 
 #include "ap_error.h"
 
@@ -75,10 +75,10 @@ class List{
     friend std::ostream& operator<<(std::ostream&, const List<O>&);
 
     template <typename O>
-    calss __iterator;
+    class __iterator;
 
     using iterator = __iterator<T>;
-    using cont_iterator = __iterator<const T>;
+    using const_iterator = __iterator<const T>;
 
     iterator begin() noexcept { return iterator{head.get()}; }  // returns the begin of the list
     iterator end() { return iterator{nullptr}; }  // returns one past the last element
@@ -88,7 +88,7 @@ class List{
     const_iterator cend() const { return const_iterator{nullptr}; }
 };
 
-template <typename T>  // tempalte of the calss list
+template <typename T>  // template of the class list
 template <typename O>// template of the class iterator
 class List<T>::__iterator{
     using node = typename List<T>::node;
@@ -96,7 +96,7 @@ class List<T>::__iterator{
 public:
     explicit __iterator(node* x) noexcept: current{x} {}  // it's better use explicit, ecapet because we're not aquiring memory here
 
-    using value_type = 0;// value type of the calss iterator
+    using value_type = O;// value type of the calss iterator
     using difference_type = std::ptrdiff_t;
     using iterator_category = std::forward_iterator_tag;
     using reference = value_type&;
@@ -111,13 +111,13 @@ public:
     }
 
     __iterator operator++(int) noexcept {  // post-increment -> by value because ....  USE PRE-INCREMENT because it's faster! You don't need to do all this stuff:
-        __iterator tmp {current};  // we didn't implement a copy constructor
+        __iterator tmp{current};  // we didn't implement a copy constructor
         ++(*this);
         current = current->next.get(); // we used unique pointers!
         return tmp;
     }
 
-    friend // they're not part of the calss
+    friend // they're not part of the class
     bool operator==(const __iterator& a, const __iterator& b){
         return ;
     }

@@ -4,9 +4,9 @@
 
 ### Compiling
 
-Distinguish implementation from definition.
+Distinguish implementation (in file `.cc`) from definition (in file `.h`).
 
-hader → collected inside a folder named `include` because they are meanted to be included (include means to copy and paste the content of the file)
+header → file `.h` → collected inside a folder named `include` because they are meant to be included (include means to copy and paste the content of the file)
 
 ```bash
 $ cd lectures/c++/09_symbols/01_greetings_library/
@@ -69,8 +69,8 @@ two types of library: **static** or **dynamic** →shared is preferred!
 
 To compile, two steps that have their own flags:
 
-	- compile → `conclusion.cc` and `greeting.cc` → it's the slowest part, so try to not do it when it is not necessary
-	- link → 
+- compile → `conclusion.cc` and `greeting.cc` → it's the slowest part, so try to not do it when it is not necessary
+- link → 
 
 | src | → | .o | → | bin| (binary, not executable because it doesn't have a main)
 
@@ -105,7 +105,7 @@ The computer need to know where a symbol is located → offset from 0
 
 The addresses of the symbols are not known, so you should use **position independent code** → FLAG `-fPIC`
 
-```
+```bash
 $ c++ -c src/conclusion.cc -I include -fPIC
 $ c++ -c src/greetings.cc -I include -fPIC
 ```
@@ -214,7 +214,7 @@ c++ -fpic -DENGLISH -o src/greetings.o -c src/greetings.cc -Iinclude
 c++ -shared -o libgreetings.so src/greetings.o src/conclusion.o
 ```
 
-He recomplies only the file that was changed and then it links it.
+He recompiles only the file that was changed and then it links it.
 
 What if I change the header?
 
@@ -265,6 +265,8 @@ The `@` is for avoiding to print all the commands executed on screen
 
 `.PHONY: clean all format` → I don't check if ... is .. or not, I just execute the action
 
+You use `.PHONY` to flag targets that do not represent physical files on the system. A problem arises if you have a file named `clean` and you didn't used `.PHONY`: the compiler doesn't know what to do!
+
 ```bash
 CXX = c++
 LANG = ENGLISH
@@ -298,7 +300,9 @@ clean:
 .PHONY: clean
 ```
 
-### Flags
+### Flags of make
+
+`man make`:
 
 ```bash
 $ make -B
@@ -307,7 +311,7 @@ c++ -fpic -DENGLISH -o src/conclusion.o -c src/conclusion.cc -Iinclude
 c++ -shared -o libgreetings.so src/greetings.o src/conclusion.o
 ```
 
-to force the recompilation → Doesn't check the typedef
+`-B` to force the recompilation → Doesn't check the typedef
 
 ```
 make -j 9
@@ -319,16 +323,18 @@ make -j 9
 make -n
 ```
 
+It prints all the commands that it would execute if you launch it but it doesn't launch them.
+
 ```bash
 format: $(SRC) include/greetings.h include/conclusion.h
 	@clang-format -i $^ 2>/dev/null || echo "Please install clang-format to run this commands"
 ```
 
-To indent all the files properly
+→ To indent all the files properly
 
 All the macros that you define should be put in a header that is include in every file.
 
-## boh
+## Linking
 
 ```bash
 $ cd ../02_link_library/
@@ -381,7 +387,7 @@ int main()
 
 c++ is a static compiled language → it needs to know at compile time all the symbols! →  I have to include the headers!
 
-**Compilation:** I generate a .o files
+**Compilation:** I generate the `.o` files
 
 ```bash
 $ c++ -c -I include -I ../01_greetings_library/include/ main.cc
@@ -474,7 +480,7 @@ LANG = ITALIANO
 ...
 ```
 
-I force recomplilation
+I force recompilation
 
 ```bash
 $ cd ../01_greetings_library/
@@ -501,7 +507,7 @@ alberto's average: 3.1
 Ci vediamo giovedì
 ```
 
-
+### Install a library
 
 How do you install a library?
 
@@ -736,6 +742,8 @@ collect2: error: ld returned 1 exit status
 Makefile:10: recipe for target 'exe' failed
 make: *** [exe] Error 1
 ```
+
+→ `circle.cc` contains a variable named `circle_counter`, so you have a double definition!
 
 If I leave the line as `extern int circle_counter;`:
 
