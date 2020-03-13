@@ -207,7 +207,7 @@ c++ -shared -o libgreetings.so src/greetings.o src/conclusion.o
 $ make
 make: Nessuna operazione da eseguire per "all".
 
-$ touch src/greetings.cc # because I'm lazy, yust to let the compiler thing that I changed it
+$ touch src/greetings.cc # because I'm lazy, yust to let the compiler think that I changed it
 
 $ make
 c++ -fpic -DENGLISH -o src/greetings.o -c src/greetings.cc -Iinclude

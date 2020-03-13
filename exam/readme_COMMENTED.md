@@ -1,7 +1,7 @@
 # Advanced Programming Exam
 
 The exam consists of a written project followed by an oral discussion. 
-The written project is due to February 14, 2020, at 11:59 PM.
+The written project is due to February 19, 2020, at 8:55 AM.
 Orals take place on 19th and 20th of February.
 
 - Work in groups make of two/three people.
@@ -68,7 +68,7 @@ You have to solve the following tasks using modern C++14 (C++17 is welcome as we
 
 - Implement at least the following public member functions.
 
-##### Insert
+##### Insert (&#x2705;) 
 
 ```c++
 std::pair<iterator, bool> insert(const pair_type& x);
@@ -76,7 +76,7 @@ std::pair<iterator, bool> insert(pair_type&& x);
 ```
 They are used to insert a new node. The function returns a pair of an iterator (pointing to the node) and a bool. The bool is true if a new node has been allocated, false otherwise (i.e., the key was already present in the tree). `pair_type` can be for example `std::pair<const key_type, value_type>`. 
 
-##### Emplace
+##### Emplace (&#x2705;) 
 
 ```c++
 template< class... Types >
@@ -88,30 +88,32 @@ Inserts a new element into the container constructed in-place with the given arg
 
 ```c++
 bst<int,int> t;
+
 t.insert({1, 3});
 // EQUIVALENT TO:
 t.insert(std::pair<KT, VT>{1, 3})
+
 t.emplace(5,4);
 ```
 
-##### Clear
+##### Clear (&#x2705;) 
 
 ```c++
 void clear();
 ```
 Clear the content of the tree.
 
-##### Begin
+##### Begin (&#x2705;) 
 
 ```c++
 iterator begin();
-const_iterator begin() const; / Difference between iterator and const_iterator: when you derefrence them!  → const iterator: you cannot change it! READ ONLY
+const_iterator begin() const; // Difference between iterator and const_iterator: when you derefrence them!  → const iterator: you cannot change it! READ ONLY
 const_iterator cbegin() const;
 ```
 
 Return an iterator to the left-most node (which, likely, is not the root node).
 
-##### End
+##### End (&#x2705;) 
 
 ```c++
 iterator end();
@@ -121,7 +123,7 @@ const_iterator cend() const;
 
 Return an iterator to one-past the last element.
 
-##### Find
+##### Find (&#x2705;)
 
 ```c++
 iterator find(const key_type& x); // find a node and eventually change the value
@@ -129,7 +131,7 @@ const_iterator find(const key_type& x) const; // find if a node just exists: the
 ```
 Find a given key. If the key is present, returns an iterator to the proper node, `end()` otherwise.
 
-##### Balance
+##### Balance (&#x2705;)
 
 ```c++
 void balance();
@@ -139,7 +141,7 @@ Balance the tree. A simple and naive implementation is fine. The aim of this exa
 
 Easiest thing: copy the pairs into an `std::vector` then clear the tree, and start constructing a new tree. How? Take the half value and put it as root, at its right put the half of the right part of the vector, at its left the half of the left part of the vector, and so on...
 
-##### Subscripting operator
+##### Subscripting operator (&#x2705;) 
 
 
 ```c++
@@ -153,7 +155,7 @@ Returns a reference to the value that is mapped to a key equivalent to `x`, perf
 insert({x, VT{}}) // default constructor of type VT: VT{} is the default value!
 ```
 
-##### Put-to operator
+##### Put-to operator (&#x2705;) 
 
 
 ```c++
@@ -163,17 +165,17 @@ std::ostream& operator<<(std::ostream& os, const bst& x);
 
 Implement the friend function **inside** the class, such that you do not have to specify the templates for `bst` (they are a lot! But inside the class they are known).
 
-##### Copy and move
+##### Copy and move (&#x2705;)
 
 The copy semantics perform a deep-copy. Move semantics is as usual.
 
-##### Erase
+##### Erase (&#x2705;)
 
 ```c++
 void erase(const key_type& x);
 ```
 
-Removes the element (if one exists) with the key equivalent to key. Find a way to move the nodes from the function and not use `balance()`! (You can but you will have to recode this function with Casagrande)
+Removes the element (if one exists) with the key equivalent to key. Find a way to move the nodes from the function and not use `balance()`! (You can but you will have to re-code this function with Casagrande)
 
 
 ### Hints
@@ -186,7 +188,7 @@ Removes the element (if one exists) with the key equivalent to key. Find a way t
 struct Node{
 	key_t k;
 	val_t v;
-} &#x274C; &#x274C; &#x274C;
+}
 
 std::pair<..> value;
 ```
@@ -195,7 +197,7 @@ std::pair<..> value;
 
   The user don't have to know the class Node! It only have to know that there is the pair!
 
-- If the two classes are templates with all and only the same templates make sense to put them one into another, otherwise NO! → Node can have just one template `T`, and not two (key and value)
+- If the two classes are templated with all and only the same templates make sense to put them one into another, otherwise NO! → Node can have just one template `T`, and not two (key and value)
 
   ```c++
   template <typename T>
@@ -220,8 +222,8 @@ std::pair<..> value;
   template <typename T>
   struct Node{
   	T value;
-  	left, right; // unique_ptr!
-  	Node* parent; // a simply row pointer: you need it to navigate the three
+  	std::unique_ptr<Node> left, right; // unique_ptr!
+  	Node* parent; // a simply row pointer: you need it to navigate the tree
   }
   ```
 
@@ -251,7 +253,7 @@ std::pair<..> value;
 
   ```c++
   template <typename node_t>
-  class iterator{
+  class const_iterator{
   	node_t* current;
     public:
     	using value_type = const typename node_t::value_type;
@@ -276,7 +278,7 @@ std::pair<..> value;
     	using reference = value_type&;
     	using pointer = value_type*
     	using iterator_category;
-    	using difference_type=std::ptrdiff_t // two iterators are equal if they point tot he same node
+    	using difference_type=std::ptrdiff_t // two iterators are equal if they point to the same node
       reference operator*() const{
           return .....;
       }
@@ -291,7 +293,7 @@ std::pair<..> value;
   	cmp op; // operator of comparison
     public:
       bst(cmp x): op{x} {} // constructor
-      using node_type = Node<std::pair<const KT, VS>>;
+      using node_type = Node<std::pair<const KT, VT>>;
       using iterator = _iterator<node_type, typename node_type::value_type>
       using const_iterator = _iterator<node_type, const T>
   }
@@ -303,7 +305,7 @@ std::pair<..> value;
   std::pair<iterator, bool> insert (const KT& x);
   ```
 
-  If we want to implement this funtion outside the class, we should write: first of all the three templates of the class
+  If we want to implement this function outside the class, we should write: first of all the three templates of the class
 
   ```c++
   template <typename KT, typename VT, typename cmp>
@@ -331,19 +333,13 @@ If I want to define all the classes in a different file:
   #endif
   #include "bits_bst.hpp"
   ```
-```
-  
+
   bits_bst.hpp
   
-```
+  ```c++
   #ifndef __bst__
   #define __bst__
   #include "bst.hpp"
-  	insert ...
+   	insert ...
   #endif
-  ```
-  
-  
-
-
   ```

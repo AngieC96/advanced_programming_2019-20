@@ -21,12 +21,14 @@ class List{
         std::unique_ptr<node> next; //it's templated only in the class List -> the two classes are linked
         // fully qualified name: List::node
         T value;
-        node(const T& v, node * p): next{p}, value{v} {
+        node(const T& v, node * p) : next{p}, value{v} {
             std::cout << "copy ctor" << std::endl;
         }
         //node(const T&& v, node * p): next{p}, value{std::move(v)} {}  // there is a possible font of warnings
-		node(T&& v, node* p): next{p}, value{std::move(v)} {}
-        explicit node(const std::unique_ptr<node>& p): value{p-> value} {
+		node(T&& v, node* p) : next{p}, value{std::move(v)} {
+			std::cout << "move ctor" << std::endl;
+		}
+        explicit node(const std::unique_ptr<node>& p) : value{p-> value} {
             if(p->next)
                 next = std::make_unique<node>(p->next);
         }
@@ -58,17 +60,17 @@ class List{
 
     public:
     List() noexcept = default;
-    List(List&& l) noexcept = default;  // they don't throws exceptions!
+    List(List&& l) noexcept = default;  // they don't throw exceptions!
     List& operator = (List&& l) noexcept = default;
 
     List(const List& l); // copy ctor
-    List& operator=(const List& l); //copy assignment -> copry semantic can throw exceptions!!!! (In the exam put them in the right places!)
+    List& operator=(const List& l); //copy assignment -> copy semantic can throw exceptions!!!! (In the exam put them in the right places!)
 
     template <class OT>  // this fit
     void insert(OT&& v, const method m);
     //void insert(const T& v, const method m);
     //void insert(T&& v, const method m);  //uses the move semantic
-    //but now I cannot use std::mode inside it: std::move(d) doesn't work -> solution: perfect forward -> std::forward<T>(d)
+    //but now I cannot use std::move inside it: std::move(d) doesn't work -> solution: perfect forward -> std::forward<T>(d)
     //prefect forward has to be done on the same type!!!
 
     template <class O> // you cannot use T beacuse it goes in conflict
@@ -80,12 +82,29 @@ class List{
     using iterator = __iterator<T>;
     using const_iterator = __iterator<const T>;
 
-    iterator begin() noexcept { return iterator{head.get()}; }  // returns the begin of the list
-    iterator end() { return iterator{nullptr}; }  // returns one past the last element
-    const_iterator begin() const { return const_iterator{head.get()}; }  // it returns a const reference, all the rest is the same
-    const_iterator end() const { return const_iterator{nullptr}; }
-    const_iterator cbegin() const { return const_iterator{head.get()}; }  // optional, but all the container have it
-    const_iterator cend() const { return const_iterator{nullptr}; }
+    iterator begin() noexcept {
+		std::cout << "non const begin" << std::endl;
+		return iterator{head.get()};
+	}  // returns the begin of the list
+
+    iterator end() {
+		std::cout << "non const end" << std::endl;
+		return iterator{nullptr};
+	}  // returns one past the last element
+    
+	const_iterator begin() const {
+		std::cout << "const begin" << std::endl;
+		return const_iterator{head.get()};
+	}  // it returns a const reference, all the rest is the same
+
+    const_iterator end() const {
+		std::cout << "const end" << std::endl;
+		return const_iterator{nullptr};
+	}
+    
+	const_iterator cbegin() const { return const_iterator{head.get()}; }  // optional, but all the container have it
+    
+	const_iterator cend() const { return const_iterator{nullptr}; }
 };
 
 template <typename T>  // template of the class list
@@ -94,9 +113,9 @@ class List<T>::__iterator{
     using node = typename List<T>::node;
     node* current;
 public:
-    explicit __iterator(node* x) noexcept: current{x} {}  // it's better use explicit, ecapet because we're not aquiring memory here
+    explicit __iterator(node* x) noexcept : current{x} {}  // it's better use explicit, ecapet because we're not aquiring memory here
 
-    using value_type = O;// value type of the calss iterator
+    using value_type = O;  // value type of the class iterator
     using difference_type = std::ptrdiff_t;
     using iterator_category = std::forward_iterator_tag;
     using reference = value_type&;
@@ -113,16 +132,16 @@ public:
     __iterator operator++(int) noexcept {  // post-increment -> by value because ....  USE PRE-INCREMENT because it's faster! You don't need to do all this stuff:
         __iterator tmp{current};  // we didn't implement a copy constructor
         ++(*this);
-        current = current->next.get(); // we used unique pointers!
         return tmp;
     }
 
     friend // they're not part of the class
     bool operator==(const __iterator& a, const __iterator& b){
-        return ;
+        return a.current == b.current;
     }
-    bool operator==(__iterator&& a, __iterator&& b){
-        return ;
+
+    friend bool operator!=(const __iterator& a, const __iterator& b){
+        return !(a == b);
     }
 };
 
@@ -205,7 +224,7 @@ std::ostream& operator<<(std::ostream& os, const List<T>& l){
 
 template <class T>
 //template <class OT>
-List<T>::List(const List& l){  //you're friend of yoursel: the frienship is on types not on objects
+List<T>::List(const List& l){  //you're friend of yourself: the frienship is on types not on objects
     //deep copy
     /*
     auto tmp = l.head.get();
@@ -237,6 +256,18 @@ int main() {
 
         for(auto x : v)
             std::cout << x << std::endl;
+
+        std::cout << "Auto iterators" << std::endl;
+        for(auto x : l) {
+            std::cout << x << std::endl;
+            x = 44;  // NON LI CAMBIA MA NON DA' ERRORE!
+        }
+        for(auto x : l)
+            std::cout << x << std::endl;
+
+        // std::cout << "Const iterators" << std::endl;
+        // for(List<int>::const_iterator x = l.begin(); x != l.end(); ++x)
+        //     std::cout << x << std::endl;
         
 
         auto ol = l; //copy ctor  
